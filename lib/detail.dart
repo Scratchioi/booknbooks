@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:booknbooks/main.dart';
 import 'package:booknbooks/data.dart';
 import 'package:booknbooks/widgets.dart';
+
 class BookDetail extends StatefulWidget {
   const BookDetail({Key? key}) : super(key: key);
 
