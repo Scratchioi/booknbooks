@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:booknbooks/home.dart';
 import 'package:booknbooks/explore.dart';
@@ -25,6 +27,15 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+
+
+  @override
+  void initState(){
+    Timer(
+      Duration(seconds: 3),()=>
+      Navigator.pushNamed(context, '/home')
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
