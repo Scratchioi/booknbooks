@@ -1,4 +1,7 @@
 import 'package:booknbooks/data.dart';
+import 'package:booknbooks/explore.dart';
+import 'package:booknbooks/settings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -41,6 +44,14 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
         labelColor: primaryColor,
         controller: _controller,
         tabs: TabData,
+      ),
+      body: TabBarView(
+        controller: _controller,
+        children: [
+          Scaffold(),
+          Explore(),
+          Settings()
+        ],
       ),
     );
   }

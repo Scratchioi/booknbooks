@@ -12,16 +12,21 @@ class textData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       info, style: TextStyle(
+      color: Colors.white,
       fontSize: size,
       fontWeight: toBold?FontWeight.bold:FontWeight.normal,
     ),
+      // maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
 
 
 class BookIcon extends StatefulWidget {
-  const BookIcon({Key? key}) : super(key: key);
+  String bookName;
+  String pathImage;
+  BookIcon({required this.bookName, required this.pathImage, info});
 
   @override
   _BookIconState createState() => _BookIconState();
@@ -30,8 +35,29 @@ class BookIcon extends StatefulWidget {
 class _BookIconState extends State<BookIcon> {
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return SizedBox(
+      width: 200,
+      child: Card(
 
+        color: Colors.grey[900],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 150,height: 200,
+                color: Colors.pink,),
+               SizedBox(
+                 height: 2,
+               ),
+               textData(info:widget.bookName, toBold: true, size: 18)
+            ],
+
+          ),
+        ),
+      ),
     );
   }
 }

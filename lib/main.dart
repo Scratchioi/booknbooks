@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:booknbooks/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:booknbooks/home.dart';
 import 'package:booknbooks/explore.dart';
@@ -15,6 +16,7 @@ void main() {
       '/home': (context)=>Home(),
       '/settings':(context)=>Settings(),
       '/explore':(context)=>Explore(),
+      '/detail':(context)=>BookDetail()
     }
   ));
 }
