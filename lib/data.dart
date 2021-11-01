@@ -6,9 +6,9 @@ Color secondaryColor = Colors.black54;
 
 
 List<Widget> TabData = [
-const Tab(text: 'Home', icon: Icon(Icons.home),),
-const Tab(text: 'Explore', icon: Icon(Icons.star)),
-const Tab(text: 'Settings', icon: Icon(Icons.settings))
+ Tab(text: 'Home', icon: Icon(Icons.home, color: primaryColor,),),
+ Tab(text: 'Explore', icon: Icon(Icons.star, color: primaryColor,)),
+ Tab(text: 'Settings', icon: Icon(Icons.settings, color: primaryColor))
 ];
 
 
