@@ -18,3 +18,20 @@ class textData extends StatelessWidget {
     );
   }
 }
+
+
+class BookIcon extends StatefulWidget {
+  const BookIcon({Key? key}) : super(key: key);
+
+  @override
+  _BookIconState createState() => _BookIconState();
+}
+
+class _BookIconState extends State<BookIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+
+    );
+  }
+}
