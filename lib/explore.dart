@@ -20,22 +20,42 @@ class _ExploreState extends State<Explore> {
       backgroundColor: secondaryColor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 250,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              CircleAvatar(radius: 60,backgroundColor: primaryColor,child: Text('my shelf 101', overflow: TextOverflow.ellipsis,),),
-              for(int i=0;i<infoData.length;i++)
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, '/detail', arguments: [infoData[i]] );
-                  },
-                    child: BookIcon(bookName: infoData[i]['book'], pathImage:infoData[i]['path'],))
-        ]
-              ,
-          ),
-        ),
+        child:
+       Column(
+         children: [
+           SizedBox(height: 30,),
+           Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: TextField(
+               style: TextStyle(color: Colors.white),
+               decoration: InputDecoration(
+                 hintText: 'Search...',
+                 hintStyle: TextStyle(
+                   color: Colors.white
+                 ),
+                 suffixIcon: Icon(Icons.search, color: Colors.white
+                   ,)
+               ),
+             ),
+           ),
+           SizedBox(
+             height: 250,
+             child: ListView(
+               scrollDirection: Axis.horizontal,
+               children: [
+                 CircleAvatar(radius: 60,backgroundColor: primaryColor,child: Text('my shelf 101', overflow: TextOverflow.ellipsis,),),
+                 for(int i=0;i<infoData.length;i++)
+                   InkWell(
+                       onTap: (){
+                         Navigator.pushNamed(context, '/detail', arguments: [infoData[i]] );
+                       },
+                       child: BookIcon(bookName: infoData[i]['book'], pathImage:infoData[i]['path'],))
+               ]
+               ,
+             ),
+           ),
+         ],
+       )
       ),
     );
   }

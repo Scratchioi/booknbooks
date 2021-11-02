@@ -1,6 +1,7 @@
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
-
+import 'package:epub_viewer/epub_viewer.dart';
+import 'package:path_provider/path_provider.dart';
 
 class bookRead extends StatefulWidget {
   const bookRead({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _bookReadState extends State<bookRead> {
       child: Scaffold(
         body:
         SfPdfViewer.network('https://sherlock-holm.es/stories/pdf/a4/1-sided/cnus.pdf'),
+
       ),
     );
   }
