@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:booknbooks/data.dart';
 import 'package:booknbooks/widgets.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
 
 class BookDetail extends StatefulWidget {
   const BookDetail({Key? key}) : super(key: key);
@@ -47,7 +49,10 @@ class _BookDetailState extends State<BookDetail> {
               ],
             ),
             const SizedBox(height: 20),
-            textData(info: 'Description', toBold: true, size: 24)
+            textData(info: 'Description', toBold: true, size: 24),
+            MaterialButton(onPressed: (){
+              Navigator.pushNamed(context, '/readbook');
+            },child: textData(info:'read now', toBold: false,size: 18,))
           ],
         ),
       ),

@@ -38,6 +38,7 @@ dependencies:
   epub_viewer: ^0.2.4
   flutter_pdfview: ^1.2.1
   fluttertoast:
+  syncfusion_flutter_pdfviewer: ^19.3.47-beta
 
 
 

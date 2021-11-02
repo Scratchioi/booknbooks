@@ -52,7 +52,9 @@ class _authenticationState extends State<authentication> {
                        ),
                      ),
                      SizedBox(height: 40,),
-                     MaterialButton(onPressed: (){},child: Text('Login'),color: primaryColor,),
+                     MaterialButton(onPressed: (){
+                       Navigator.pushReplacementNamed(context, '/home');
+                     },child: Text('Login'),color: primaryColor,),
                      SizedBox(height: 20,),
                      textData(info: 'Not registered?', toBold: false, size: 16),
                      SizedBox(height: 10,),

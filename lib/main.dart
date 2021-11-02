@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:booknbooks/detail.dart';
+import 'package:booknbooks/readbook.dart';
 import 'package:flutter/material.dart';
 import 'package:booknbooks/home.dart';
 import 'package:booknbooks/explore.dart';
 import 'package:booknbooks/settings.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:booknbooks/data.dart';
-
 import 'oauth.dart';
+// import 'package:booknbooks/bookread.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,7 +20,9 @@ void main() {
       '/settings':(context)=>Settings(),
       '/explore':(context)=>Explore(),
       '/detail':(context)=>BookDetail(),
-      '/auth':(context)=>authentication()
+      '/auth':(context)=>authentication(),
+      '/readbook':(context)=>bookRead()
+
     }
   ));
 }
@@ -38,14 +41,19 @@ class _LoadingState extends State<Loading> {
   void initState(){
     Timer(
       Duration(seconds: 3),()=>
-      Navigator.pushNamed(context, '/auth')
+      Navigator.pushReplacementNamed(context, '/auth')
     );
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: secondaryColor,
       body:
-        Center(child: Text('Loading...'))
+        Center(child: textData(
+          info: 'Loading...',
+          toBold: true,
+          size: 28,
+        ))
     );
   }
 }
