@@ -11,7 +11,9 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
-  List<Map<String,dynamic>> infoData = [{'book': 'no directions'}, {'book': 'treasure island'}, {'book': 'sherlock holmes'}];
+  List<Map<String,dynamic>> infoData = [{'book': 'no directions','path':'https://images-na.ssl-images-amazon.com/images/I/71iLv9ItY8L.jpg'},
+    {'book': 'treasure island','path':'https://images-na.ssl-images-amazon.com/images/I/81tUsa1oqZL.jpg'},
+    {'book': 'sherlock holmes','path':'https://almabooks.com/wp-content/uploads/2016/10/adventures-of-Sherlock-Holmes.jpg'}];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,6 @@ class _ExploreState extends State<Explore> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-
           height: 250,
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -30,7 +31,7 @@ class _ExploreState extends State<Explore> {
                   onTap: (){
                     Navigator.pushNamed(context, '/detail', arguments: [infoData[i]] );
                   },
-                    child: BookIcon(bookName: infoData[i]['book'], pathImage: 'ok',))
+                    child: BookIcon(bookName: infoData[i]['book'], pathImage:infoData[i]['path'],))
         ]
               ,
           ),

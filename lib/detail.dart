@@ -12,6 +12,9 @@ class BookDetail extends StatefulWidget {
 class _BookDetailState extends State<BookDetail> {
   @override
   Widget build(BuildContext context) {
+    List<Map>?data = [];
+    data = ModalRoute.of(context)!.settings.arguments as List<Map>?;
+    print(data); //debug
     return Scaffold(
       backgroundColor: secondaryColor,
       body:
@@ -26,10 +29,16 @@ class _BookDetailState extends State<BookDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(color: Colors.pink,width: 200,height: 200,),
+                Container(decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      data![0]['path']
+                    )
+                  )
+                ),width: 200,height: 200,),
                 Column(
                   children: [
-                    textData(info: 'Book Name', toBold: true, size: 24),
+                    textData(info: data[0]['book'], toBold: true, size: 24),
                     const SizedBox(height: 10,),
                     textData(info: 'Author Name', toBold: false, size: 18),
 

@@ -48,7 +48,11 @@ class _BookIconState extends State<BookIcon> {
             children: [
               Container(
                 width: 150,height: 200,
-                color: Colors.pink,),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(widget.pathImage)
+                  )
+                ),),
                SizedBox(
                  height: 2,
                ),

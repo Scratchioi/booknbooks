@@ -8,6 +8,8 @@ import 'package:booknbooks/settings.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:booknbooks/data.dart';
 
+import 'oauth.dart';
+
 void main() {
   runApp(MaterialApp(
     initialRoute: '/',
@@ -16,7 +18,8 @@ void main() {
       '/home': (context)=>Home(),
       '/settings':(context)=>Settings(),
       '/explore':(context)=>Explore(),
-      '/detail':(context)=>BookDetail()
+      '/detail':(context)=>BookDetail(),
+      '/auth':(context)=>authentication()
     }
   ));
 }
@@ -35,14 +38,14 @@ class _LoadingState extends State<Loading> {
   void initState(){
     Timer(
       Duration(seconds: 3),()=>
-      Navigator.pushNamed(context, '/home')
+      Navigator.pushNamed(context, '/auth')
     );
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-        Text('Loading...')
+        Center(child: Text('Loading...'))
     );
   }
 }
