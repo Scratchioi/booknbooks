@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-
+from first.views import * 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('populating',populating,name='populating'),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
+    path('search/',SerachAPIView.as_view(),name='search'),
+    path('/update/',UpdateProfileView.as_view(),name='update'),
+    path('explore/',exploreAPIView.as_view(),name='explore')
 ]

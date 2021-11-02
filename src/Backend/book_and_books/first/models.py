@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.db.models.base import Model
+from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
@@ -46,7 +47,7 @@ class Book(models.Model):
     description = models.TextField()
     genre=models.TextField()
     img_link= models.URLField(blank=True, null=True)
-    isbn=models.BigIntegerField(unique=True)
+    isbn=models.CharField(max_length=100,unique=True)
     rating=models.FloatField(default=0)
     pages=models.IntegerField(default=0)
     title=models.TextField(blank=True,null=True)
@@ -66,6 +67,10 @@ class Book(models.Model):
 class CustomUser(AbstractUser):
     username=None
     email = models.EmailField(_('email address'), unique=True)
+    name=models.CharField(blank=True,max_length=100,null=True)
+    username=models.CharField(unique=True,max_length=100,blank=True,null=True)
+    dob=models.DateField(blank=True,null=True)
+    intrest=models.TextField(blank=True,null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -77,12 +82,13 @@ class CustomUser(AbstractUser):
     def __str__(self):
 
         return self.email
-class User_features(models.Model):
-    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,blank=False)
-    name=models.CharField(blank=False,max_length=100)
-    username=models.CharField(unique=True,max_length=100)
-    dob=models.DateField(blank=False)
-    intrest=models.TextField()
+
+    
+# class Shelves(models.Model):
+#     id=models.AutoField()
+#     name=models.CharField(max_length=100,default=None,null=True)
+#     user=models.ForeignKey(CustomUser,default=None,null=True,on_delete=CASCADE)
+#     books=models.ForeignKey(Book,default=None,null=True,on_delete=CASCADE)
 
 
 
