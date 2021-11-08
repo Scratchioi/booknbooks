@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
     path('search/',SerachAPIView.as_view(),name='search'),
-    path('/update/',UpdateProfileView.as_view(),name='update'),
+    path('update/',UpdateProfileView.as_view(),name='update'),
     path('explore/',exploreAPIView.as_view(),name='explore')
 ]

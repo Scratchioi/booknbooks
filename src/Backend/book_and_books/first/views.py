@@ -7,11 +7,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action, permission_classes
 from rest_framework import viewsets,status,generics,views,filters
-from .serializer import CustomUser,book
+from .serializer import CustomUserSerializer, BookSerializer
 
 
 def populating(request):
-    data = pd.read_csv(r'C:\Users\abc\Desktop\minor_project2\availableBooks.csv')
+    data = pd.read_csv(r'C:\Users\offic\Desktop\Minor pRojEKT\data.csv')
     columns=['author', 'desc', 'genre', 'img', 'isbn',
        'pages', 'rating', 'title', 'GET', 'Cloudflare', 'IPFS.io', 'Infura']
        
@@ -33,14 +33,14 @@ class UpdateProfileView(views.APIView):
         # 'token', in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
 
     # @swagger_auto_schema(manual_parameters=[token_param_config])
-    def patch(self, request):
+    def post(self, request):
         #first_name,last_name,username,coutnry_code,phone_no
 
        
         user=CustomUser.objects.filter(email=request.data['user']).first()
 
         
-        user = token
+        # user = token
         try:
             if 'name' in request.data.keys():
                 user.name = request.data['name']
@@ -64,12 +64,12 @@ class SerachAPIView(generics.ListCreateAPIView):
     search_fields = ['Author', 'description', 'genre','title']
     filter_backends = (filters.SearchFilter,)
     queryset = Book.objects.all()
-    serializer_class = book
+    serializer_class = BookSerializer
 
 @permission_classes((IsAuthenticated,))
 class exploreAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
-    serializer_class = book
+    serializer_class = BookSerializer
 
 
 
