@@ -62,7 +62,7 @@ class UpdateProfileView(views.APIView):
     
 # @permission_classes((IsAuthenticated,))
 class SerachAPIView(generics.ListCreateAPIView):
-    search_fields = ['Author', 'description', 'genre','title']
+    search_fields = ['title', 'Author', 'genre']
     filter_backends = (filters.SearchFilter,)
     queryset = Book.objects.all()
     serializer_class = BookSerializer
