@@ -40,9 +40,7 @@ class _authenticationState extends State<authentication> {
                      const SizedBox(height: 20,),
                      TextField(
                        controller: _mail,
-
                        decoration: InputDecoration(
-
                          label: textData(info: 'Email', toBold: false, size: 24,),
                          hintText: 'Enter registered email address',
                          suffixIcon: const Icon(Icons.supervisor_account, color: Colors.white,
@@ -53,6 +51,8 @@ class _authenticationState extends State<authentication> {
                      TextField(
                        controller: _pasword,
                        decoration: InputDecoration(
+                         hoverColor: Colors.white,
+                         focusColor: Colors.white,
                          label: textData(info:'Password', toBold: false,size:24,),
                          hintText: 'Enter password',
 
@@ -66,7 +66,7 @@ class _authenticationState extends State<authentication> {
                        // call_to_server.exploreData();
                        call_to_server.searchData('spiritual');
                        // Navigator.pushReplacementNamed(context, '/home');
-                     },child: Text('Login'),color: primaryColor,),
+                     },child: const Text('Login'),color: primaryColor,),
                      const SizedBox(height: 20,),
                      textData(info: 'Not registered?', toBold: false, size: 16),
                      const SizedBox(height: 10,),
@@ -74,7 +74,7 @@ class _authenticationState extends State<authentication> {
                        setState(() {
                          registered = false;
                        });
-                     }, child: Text('Register'),color: primaryColor,)
+                     }, child: const Text('Register'),color: primaryColor,)
 
                    ],
                  ),
@@ -85,24 +85,18 @@ class _authenticationState extends State<authentication> {
                Visibility(visible: !registered,child: Column(
                  children: [
                    textData(info: 'Register', toBold: true, size: 24),
-                   // SizedBox(height: 20,),
-                   // TextField(
-                   //   decoration: InputDecoration(
-                   //     label: textData(info: 'Username', toBold: false, size: 24,),
-                   //     hintText: 'Enter username',
-                   //     suffixIcon: Icon(Icons.people),
-                   //   ),
-                   // ),
-                   SizedBox(height: 20,),
+
+                   const SizedBox(height: 20,),
                    TextField(
                      controller: _mail,
                      decoration: InputDecoration(
+                       focusColor: Colors.white,
                        label: textData(info: 'Email', toBold: false, size: 22,),
                        hintText: 'Enter email address',
                        suffixIcon: Icon(Icons.mail),
                      ),
                    ),
-                   SizedBox(height: 20,),
+                   const SizedBox(height: 20,),
                    TextField(
                      controller: _pasword,
                      decoration: InputDecoration(
@@ -112,7 +106,7 @@ class _authenticationState extends State<authentication> {
                        suffixIcon: Icon(Icons.lock),
                      ),
                    ),
-                   SizedBox(height: 20,),
+                   const SizedBox(height: 20,),
                    TextField(
                      controller: _confirmpwd,
                      decoration: InputDecoration(
@@ -122,14 +116,14 @@ class _authenticationState extends State<authentication> {
                        suffixIcon: Icon(Icons.lock),
                      ),
                    ),
-                   SizedBox(height: 40,),
+                   const SizedBox(height: 40,),
                    MaterialButton(onPressed: (){
 
                      call_to_server.signup(_mail.text,_pasword.text,_confirmpwd.text);
                    },child: Text('Register'),color: primaryColor,),
-                   SizedBox(height: 20,),
+                   const SizedBox(height: 20,),
                    textData(info: 'Already a user?', toBold: false, size: 16),
-                   SizedBox(height: 10,),
+                   const SizedBox(height: 10,),
                    MaterialButton(onPressed: (){
                      setState(() {
                        registered = true;

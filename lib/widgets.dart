@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class textData extends StatelessWidget {
@@ -65,3 +66,16 @@ class _BookIconState extends State<BookIcon> {
     );
   }
 }
+
+
+class essentials{
+
+
+  showToast(String info)=>Fluttertoast.showToast(
+      msg: info
+
+    );
+
+}
+
+
