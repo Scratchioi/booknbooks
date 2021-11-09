@@ -2,6 +2,8 @@ import 'package:booknbooks/data.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:flutter/material.dart';
 
+import 'apicalls.dart';
+
 
 class authentication extends StatefulWidget {
   const authentication({Key? key}) : super(key: key);
@@ -13,9 +15,10 @@ class authentication extends StatefulWidget {
 class _authenticationState extends State<authentication> {
   bool registered = true;
   TextEditingController _mail = TextEditingController();
-  TextEditingController _name = TextEditingController();
+  // TextEditingController _name = TextEditingController();
   TextEditingController _pasword = TextEditingController();
-
+  TextEditingController _confirmpwd = TextEditingController();
+  ApiCalls call_to_server = ApiCalls();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,30 +37,39 @@ class _authenticationState extends State<authentication> {
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
                      textData(info: 'Login', toBold: true, size: 24),
-                     SizedBox(height: 20,),
+                     const SizedBox(height: 20,),
                      TextField(
+                       controller: _mail,
+
                        decoration: InputDecoration(
+
                          label: textData(info: 'Email', toBold: false, size: 24,),
                          hintText: 'Enter registered email address',
-                         suffixIcon: Icon(Icons.supervisor_account),
+                         suffixIcon: const Icon(Icons.supervisor_account, color: Colors.white,
+                         ),
                        ),
                      ),
-                     SizedBox(height: 20,),
+                     const SizedBox(height: 20,),
                      TextField(
+                       controller: _pasword,
                        decoration: InputDecoration(
                          label: textData(info:'Password', toBold: false,size:24,),
                          hintText: 'Enter password',
 
-                         suffixIcon: Icon(Icons.lock),
+                         suffixIcon: const Icon(Icons.lock, color: Colors.white),
                        ),
                      ),
-                     SizedBox(height: 40,),
+                     const SizedBox(height: 40,),
                      MaterialButton(onPressed: (){
-                       Navigator.pushReplacementNamed(context, '/home');
+                       call_to_server.login(_mail.text, _pasword.text);
+                       print('done');
+                       // call_to_server.exploreData();
+                       call_to_server.searchData('spiritual');
+                       // Navigator.pushReplacementNamed(context, '/home');
                      },child: Text('Login'),color: primaryColor,),
-                     SizedBox(height: 20,),
+                     const SizedBox(height: 20,),
                      textData(info: 'Not registered?', toBold: false, size: 16),
-                     SizedBox(height: 10,),
+                     const SizedBox(height: 10,),
                      MaterialButton(onPressed: (){
                        setState(() {
                          registered = false;
@@ -73,33 +85,48 @@ class _authenticationState extends State<authentication> {
                Visibility(visible: !registered,child: Column(
                  children: [
                    textData(info: 'Register', toBold: true, size: 24),
+                   // SizedBox(height: 20,),
+                   // TextField(
+                   //   decoration: InputDecoration(
+                   //     label: textData(info: 'Username', toBold: false, size: 24,),
+                   //     hintText: 'Enter username',
+                   //     suffixIcon: Icon(Icons.people),
+                   //   ),
+                   // ),
                    SizedBox(height: 20,),
                    TextField(
+                     controller: _mail,
                      decoration: InputDecoration(
-                       label: textData(info: 'Username', toBold: false, size: 24,),
-                       hintText: 'Enter username',
-                       suffixIcon: Icon(Icons.people),
-                     ),
-                   ),
-                   SizedBox(height: 20,),
-                   TextField(
-                     decoration: InputDecoration(
-                       label: textData(info: 'Email', toBold: false, size: 24,),
+                       label: textData(info: 'Email', toBold: false, size: 22,),
                        hintText: 'Enter email address',
                        suffixIcon: Icon(Icons.mail),
                      ),
                    ),
                    SizedBox(height: 20,),
                    TextField(
+                     controller: _pasword,
                      decoration: InputDecoration(
-                       label: textData(info:'Password', toBold: false,size:24,),
+                       label: textData(info:'Password', toBold: false,size:22,),
                        hintText: 'Create a password (min 8 characters)',
 
                        suffixIcon: Icon(Icons.lock),
                      ),
                    ),
+                   SizedBox(height: 20,),
+                   TextField(
+                     controller: _confirmpwd,
+                     decoration: InputDecoration(
+                       label: textData(info:'Confirm Password', toBold: false,size:22,),
+                       hintText: 'Re-enter your password',
+
+                       suffixIcon: Icon(Icons.lock),
+                     ),
+                   ),
                    SizedBox(height: 40,),
-                   MaterialButton(onPressed: (){},child: Text('Register'),color: primaryColor,),
+                   MaterialButton(onPressed: (){
+
+                     call_to_server.signup(_mail.text,_pasword.text,_confirmpwd.text);
+                   },child: Text('Register'),color: primaryColor,),
                    SizedBox(height: 20,),
                    textData(info: 'Already a user?', toBold: false, size: 16),
                    SizedBox(height: 10,),

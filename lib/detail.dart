@@ -62,7 +62,8 @@ class _BookDetailState extends State<BookDetail> {
               Navigator.pushNamed(context, '/readbook');
             },child: textData(info:'read now', toBold: false,size: 18,)),
             MaterialButton(onPressed: () => downloadBook(),child: textData(info:!downloaded?'download':'downloaded', toBold: false,size: 18,)),
-            Visibility(child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,)
+            Visibility(
+              child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,)
           ],
         ),
       ),
@@ -72,13 +73,15 @@ class _BookDetailState extends State<BookDetail> {
   Future<File> getFile() async {
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
     String filePath = '${appDocumentsDirectory.path}/${data![0]['book']}.pdf';
-
     return File(filePath);
   }
 
   Future<void> downloadBook() async {
     // String url = data![0]['GET'];
-    downloading = true;
+
+    setState(() {
+      downloading = true;
+    });
     String url = 'https://sherlock-holm.es/stories/pdf/a4/1-sided/cnus.pdf';
 
     Request request = Request('GET', Uri.parse(url));
@@ -96,8 +99,11 @@ class _BookDetailState extends State<BookDetail> {
       onDone: () async {
         file.writeAsBytes(bytes);
         print(bytes.length);
-        downloaded = true;
-        downloading = false;
+
+        setState(() {
+          downloaded = true;
+          downloading = false;
+        });
       },
       onError: (e) {
         print(e);
