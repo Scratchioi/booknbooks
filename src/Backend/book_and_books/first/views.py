@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action, permission_classes
 from rest_framework import viewsets,status,generics,views,filters
 from .serializer import CustomUserSerializer, BookSerializer
+from rest_framework.pagination import PageNumberPagination
 
 
 def populating(request):
@@ -59,15 +60,15 @@ class UpdateProfileView(views.APIView):
         except Exception as e: 
             return Response({'error': e}, status=status.HTTP_400_BAD_REQUEST)
     
-@permission_classes((IsAuthenticated,))
+# @permission_classes((IsAuthenticated,))
 class SerachAPIView(generics.ListCreateAPIView):
     search_fields = ['Author', 'description', 'genre','title']
     filter_backends = (filters.SearchFilter,)
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-@permission_classes((IsAuthenticated,))
-class exploreAPIView(generics.ListAPIView):
+# @permission_classes((IsAuthenticated,))
+class exploreAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
