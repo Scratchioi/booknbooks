@@ -14,6 +14,13 @@ class _ExploreState extends State<Explore> {
   List<Map<String,dynamic>> infoData = [{'book': 'no directions','path':'https://images-na.ssl-images-amazon.com/images/I/71iLv9ItY8L.jpg'},
     {'book': 'treasure island','path':'https://images-na.ssl-images-amazon.com/images/I/81tUsa1oqZL.jpg'},
     {'book': 'sherlock holmes','path':'https://almabooks.com/wp-content/uploads/2016/10/adventures-of-Sherlock-Holmes.jpg'}];
+
+  @override
+  void initState(){
+    super.initState();
+    call_to_server.getToken(context);
+  }
+
   @override
   Widget build(BuildContext context) {
 

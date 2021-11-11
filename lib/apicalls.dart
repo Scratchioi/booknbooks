@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-// import 'dart:js';
 import 'package:booknbooks/data.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,9 +10,6 @@ import 'package:http/http.dart';
 class ApiCalls{
   String baseURL = 'http://192.168.1.10:8080';
 
-  // ApiCalls(){
-  //   this.context =
-  // }
   /*
 
   Response codes
@@ -47,7 +43,10 @@ class ApiCalls{
     }
 
     );
-    print(response.statusCode);
+    print(response.statusCode); // debug print
+    print(jsonDecode(response.body)['key']);
+    auth_token = jsonDecode(response.body)['key'];
+    saveToken(auth_token);
     if(response.statusCode==200){
       essentials().showToast('Logged in Successfully');
       // receive token and store in a file
