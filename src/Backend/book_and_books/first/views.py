@@ -72,6 +72,18 @@ class exploreAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+class genre_based_filter(generics.ListAPIView):
+    serializer_class = BookSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        genre = self.request.data.get('genre')
+        return Book.objects.filter(genre__contains=genre)
+
+
 
 
 
