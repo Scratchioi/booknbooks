@@ -83,6 +83,14 @@ class CustomUser(AbstractUser):
 
         return self.email
 
+class user_interaction(models.Model):
+    user=models.ManyToManyField(CustomUser)
+    book=models.ManyToManyField(Book)
+    read=models.BooleanField(default=False)
+    completed=models.BooleanField(default=False)
+    page_num=models.IntegerField(default=0)
+
+
     
 # class Shelves(models.Model):
 #     id=models.AutoField()
