@@ -79,9 +79,9 @@ class _ExploreState extends State<Explore> {
                
              ),
              SizedBox(height: 100,),
-             MaterialButton(onPressed: (){
-               print(data_explore);
-             }, child: Text('press me'),color: Colors.white,)
+             // MaterialButton(onPressed: (){
+             //   print(data_explore);
+             // }, child: Text('press me'),color: Colors.white,)
            ],
          )
         ),

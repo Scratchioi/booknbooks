@@ -27,7 +27,7 @@ class _searchPageState extends State<searchPage> {
       body: 
      Padding(
        padding: const EdgeInsets.all(10),
-       child: GridView(
+       child: data_search.length!=0?GridView(
          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 10,childAspectRatio: .6),
          children: [
            for(int i=0;i<data!.length;i++)
@@ -44,7 +44,7 @@ class _searchPageState extends State<searchPage> {
 
              )
          ],
-       ),
+       ):textData(info: 'No results', toBold: true, size: 24),
      )
     );
   }
