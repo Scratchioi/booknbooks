@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:booknbooks/data.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -59,10 +60,12 @@ class ApiCalls{
   }
   exploreData(BuildContext context)async{
      if(auth_token!=''){
-       Response response = await get(Uri.parse(baseURL+'/explore/'),
+       int num = Random().nextInt(300)+1;
+       Response response = await get(Uri.parse(baseURL+'/explore/?page=$num'),
            headers: {'Authorization':'token $auth_token'});
        print(jsonDecode(response.body));//debug print
-       data_explore = jsonDecode(response.body);
+       data_explore = jsonDecode(response.body)['results'];
+       print(data_explore);
        print('length of the data  : ${data_explore.length}');
      }
      else{

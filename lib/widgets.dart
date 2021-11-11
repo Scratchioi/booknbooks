@@ -7,7 +7,10 @@ class textData extends StatelessWidget {
   bool toBold;
   double size;
 
-  textData({required this.info, required this.toBold, required this.size});
+
+  textData({Key? key, required this.info, required this.toBold, required this.size}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
