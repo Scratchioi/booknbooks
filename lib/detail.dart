@@ -27,6 +27,11 @@ class _BookDetailState extends State<BookDetail> {
     print(data); //debug
     return Scaffold(
       backgroundColor: secondaryColor,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title:textData(info: data![0]['title'], toBold: true, size: 18) ,
+        centerTitle: true,
+      ),
       body:
       Padding(
         padding: const EdgeInsets.all(10),
@@ -35,6 +40,9 @@ class _BookDetailState extends State<BookDetail> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SafeArea(child: textData(info: 'Author Name', toBold: false, size: 18)),
+              const SizedBox(height: 10,),
+              SafeArea(child: textData(info:data![0]['Author'], toBold: true,size: 18,)),
               const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,11 +57,9 @@ class _BookDetailState extends State<BookDetail> {
                   ),width: 200,height: 200,),
                   Column(
                     children: [
-                      textData(info: data![0]['title'], toBold: true, size: 24),
-                      const SizedBox(height: 10,),
-                      textData(info: 'Author Name', toBold: false, size: 18),
-                      const SizedBox(height: 10,),
-                      textData(info:data![0]['Author'], toBold: true,size: 18,)
+                      // textData(info: data![0]['title'], toBold: true, size: 24),
+                      // const SizedBox(height: 10,),
+
 
                     ],
                   )
