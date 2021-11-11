@@ -16,6 +16,7 @@ class _ExploreState extends State<Explore> {
     {'book': 'sherlock holmes','path':'https://almabooks.com/wp-content/uploads/2016/10/adventures-of-Sherlock-Holmes.jpg'}];
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: secondaryColor,
       body: Padding(
@@ -23,7 +24,7 @@ class _ExploreState extends State<Explore> {
         child:
        Column(
          children: [
-           SizedBox(height: 30,),
+           const SizedBox(height: 30,),
            Padding(
              padding: const EdgeInsets.all(8.0),
              child: TextField(

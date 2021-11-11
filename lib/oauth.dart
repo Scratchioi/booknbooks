@@ -18,9 +18,13 @@ class _authenticationState extends State<authentication> {
   // TextEditingController _name = TextEditingController();
   TextEditingController _pasword = TextEditingController();
   TextEditingController _confirmpwd = TextEditingController();
-  ApiCalls call_to_server = ApiCalls();
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.brown[900],
       body: Center(
@@ -61,7 +65,7 @@ class _authenticationState extends State<authentication> {
                      ),
                      const SizedBox(height: 40,),
                      MaterialButton(onPressed: (){
-                       call_to_server.login(_mail.text, _pasword.text);
+                       call_to_server.login(_mail.text, _pasword.text, context);
                        print('done');
                        // call_to_server.exploreData();
                        call_to_server.searchData('spiritual');
@@ -119,7 +123,7 @@ class _authenticationState extends State<authentication> {
                    const SizedBox(height: 40,),
                    MaterialButton(onPressed: (){
 
-                     call_to_server.signup(_mail.text,_pasword.text,_confirmpwd.text);
+                     call_to_server.signup(_mail.text,_pasword.text,_confirmpwd.text, context);
                    },child: Text('Register'),color: primaryColor,),
                    const SizedBox(height: 20,),
                    textData(info: 'Already a user?', toBold: false, size: 16),

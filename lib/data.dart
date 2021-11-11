@@ -1,3 +1,4 @@
+import 'package:booknbooks/apicalls.dart';
 import 'package:flutter/material.dart';
 
 
@@ -10,5 +11,10 @@ List<Widget> TabData = [
  Tab(text: 'Explore', icon: Icon(Icons.star, color: primaryColor,)),
  Tab(text: 'Settings', icon: Icon(Icons.settings, color: primaryColor))
 ];
+
+
+String auth_token = '';
+
+ApiCalls call_to_server = ApiCalls();
 
 
