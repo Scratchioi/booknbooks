@@ -11,12 +11,17 @@ class bookRead extends StatefulWidget {
 }
 
 class _bookReadState extends State<bookRead> {
+
+  List<dynamic>? data= [];
+
+
   @override
   Widget build(BuildContext context) {
+     data = ModalRoute.of(context)!.settings.arguments as List<dynamic>?;
     return SafeArea(
       child: Scaffold(
         body:
-        SfPdfViewer.network('https://sherlock-holm.es/stories/pdf/a4/1-sided/cnus.pdf'),
+        SfPdfViewer.network(data![0]['get']),
 
       ),
     );

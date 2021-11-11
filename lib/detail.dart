@@ -30,43 +30,46 @@ class _BookDetailState extends State<BookDetail> {
       body:
       Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      data![0]['img_link']
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        data![0]['img_link']
+                      )
                     )
-                  )
-                ),width: 200,height: 200,),
-                Column(
-                  children: [
-                    textData(info: data![0]['title'], toBold: true, size: 24),
-                    const SizedBox(height: 10,),
-                    textData(info: 'Author Name', toBold: false, size: 18),
-                    const SizedBox(height: 10,),
-                    textData(info:data![0]['Author'], toBold: true,size: 18,)
+                  ),width: 200,height: 200,),
+                  Column(
+                    children: [
+                      textData(info: data![0]['title'], toBold: true, size: 24),
+                      const SizedBox(height: 10,),
+                      textData(info: 'Author Name', toBold: false, size: 18),
+                      const SizedBox(height: 10,),
+                      textData(info:data![0]['Author'], toBold: true,size: 18,)
 
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-            textData(info: 'Description', toBold: true, size: 24),
-            MaterialButton(onPressed: (){
-              Navigator.pushNamed(context, '/readbook');
-            },child: textData(info:'read now', toBold: false,size: 18,)),
-            MaterialButton(onPressed: () => downloadBook(),child: textData(info:!downloaded?'download':'downloaded', toBold: false,size: 18,)),
-            Visibility(
-              child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,)
-          ],
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              textData(info: 'Description', toBold: true, size: 24),
+              Text(data![0]['description'], style: TextStyle(color: Colors.white),),
+              MaterialButton(onPressed: (){
+                Navigator.pushNamed(context, '/readbook',arguments: data);
+              },child: textData(info:'read now', toBold: false,size: 18,)),
+              MaterialButton(onPressed: () => downloadBook(),child: textData(info:!downloaded?'download':'downloaded', toBold: false,size: 18,)),
+              Visibility(
+                child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,)
+            ],
+          ),
         ),
       ),
     );
