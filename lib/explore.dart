@@ -18,6 +18,7 @@ class _ExploreState extends State<Explore> {
   @override
   void initState(){
     super.initState();
+    print('refreshing the page..');
     loadBooks();
 
   }
@@ -31,19 +32,20 @@ class _ExploreState extends State<Explore> {
 
   @override
   Widget build(BuildContext context) {
-
+    TextEditingController _controller = TextEditingController();
     return Scaffold(
       backgroundColor: secondaryColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0),
           child:
          Column(
            children: [
-             const SizedBox(height: 30,),
-             const Padding(
+              SizedBox(height: 30,),
+              Padding(
                padding: EdgeInsets.all(8.0),
                child: TextField(
+                 controller: _controller,
                  style: TextStyle(color: Colors.white),
                  decoration: InputDecoration(
                    hintText: 'Search...',
@@ -53,6 +55,11 @@ class _ExploreState extends State<Explore> {
                    suffixIcon: Icon(Icons.search, color: Colors.white
                      ,)
                  ),
+                 onSubmitted: (newText)async{
+                   // search request here
+                   await call_to_server.searchData(newText);
+                   Navigator.pushNamed(context, '/search',arguments: data_search);
+                 },
                ),
              ),
              SizedBox(

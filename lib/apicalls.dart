@@ -77,8 +77,11 @@ class ApiCalls{
   searchData(String dataToSearch)async{
 
      if(auth_token!=''){
-       Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch'), headers: {'Authorization':'token $auth_token'});
-       print(jsonDecode(response.body)[0]['img_link']); //debug print
+       Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch'),
+           headers: {'Authorization':'token $auth_token'});
+       print(jsonDecode(response.body)); //debug print
+       data_search = jsonDecode(response.body)['results'];
+       print(data_search);
      }
   }
   getToken(BuildContext context)async{

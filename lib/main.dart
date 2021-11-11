@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:booknbooks/detail.dart';
 import 'package:booknbooks/readbook.dart';
+import 'package:booknbooks/searchpage.dart';
 import 'package:flutter/material.dart';
 import 'package:booknbooks/home.dart';
 import 'package:booknbooks/explore.dart';
@@ -21,7 +22,8 @@ void main() {
       '/explore':(context)=>Explore(),
       '/detail':(context)=>BookDetail(),
       '/auth':(context)=>authentication(),
-      '/readbook':(context)=>bookRead()
+      '/readbook':(context)=>bookRead(),
+      '/search' : (context)=>searchPage(),
 
     }
   ));

@@ -10,7 +10,7 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseHelper{
   static const _dbname = 'Rooms.db';
   static const _dbVersion = 1;
-  static const _tableName = 'MyTable';
+  static const _tableName = 'MyUsers';
   static const columnId = '_id';
   static const columnName = 'id_Name';
 

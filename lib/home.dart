@@ -46,6 +46,7 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
         tabs: TabData,
       ),
       body: TabBarView(
+        physics:NeverScrollableScrollPhysics() ,
         controller: _controller,
         children: [
           Scaffold(),
