@@ -17,13 +17,13 @@ class BookDetail extends StatefulWidget {
 
 class _BookDetailState extends State<BookDetail> {
 
-  List<Map>?data = [];
+  List<dynamic>?data = [];
   bool downloaded = false;
   bool downloading = false;
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as List<Map>?;
+    data = ModalRoute.of(context)!.settings.arguments as List<dynamic>?;
     print(data); //debug
     return Scaffold(
       backgroundColor: secondaryColor,
@@ -42,15 +42,17 @@ class _BookDetailState extends State<BookDetail> {
                 Container(decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      data![0]['path']
+                      data![0]['img_link']
                     )
                   )
                 ),width: 200,height: 200,),
                 Column(
                   children: [
-                    textData(info: data![0]['book'], toBold: true, size: 24),
+                    textData(info: data![0]['title'], toBold: true, size: 24),
                     const SizedBox(height: 10,),
                     textData(info: 'Author Name', toBold: false, size: 18),
+                    const SizedBox(height: 10,),
+                    textData(info:data![0]['Author'], toBold: true,size: 18,)
 
                   ],
                 )

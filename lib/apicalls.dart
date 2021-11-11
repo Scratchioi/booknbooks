@@ -57,14 +57,18 @@ class ApiCalls{
       essentials().showToast('Login Failed');
     }
   }
-  exploreData()async{
+  exploreData(BuildContext context)async{
      if(auth_token!=''){
        Response response = await get(Uri.parse(baseURL+'/explore/'),
            headers: {'Authorization':'token $auth_token'});
-       print(jsonDecode(response.body)); //debug print
+       print(jsonDecode(response.body));//debug print
+       data_explore = jsonDecode(response.body);
+       print('length of the data  : ${data_explore.length}');
      }
      else{
        print('return back to the login page');
+       essentials().showToast('Session Expired');
+       Navigator.pushReplacementNamed(context, '/auth');
      }
   }
   searchData(String dataToSearch)async{

@@ -17,4 +17,4 @@ String auth_token = '';
 
 ApiCalls call_to_server = ApiCalls();
 
-
+List data_explore = [];

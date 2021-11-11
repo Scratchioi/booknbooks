@@ -19,6 +19,7 @@ class _ExploreState extends State<Explore> {
   void initState(){
     super.initState();
     call_to_server.getToken(context);
+    call_to_server.exploreData(context);
   }
 
   @override
@@ -32,8 +33,8 @@ class _ExploreState extends State<Explore> {
        Column(
          children: [
            const SizedBox(height: 30,),
-           Padding(
-             padding: const EdgeInsets.all(8.0),
+           const Padding(
+             padding: EdgeInsets.all(8.0),
              child: TextField(
                style: TextStyle(color: Colors.white),
                decoration: InputDecoration(
@@ -52,16 +53,21 @@ class _ExploreState extends State<Explore> {
                scrollDirection: Axis.horizontal,
                children: [
                  CircleAvatar(radius: 60,backgroundColor: primaryColor,child: Text('my shelf 101', overflow: TextOverflow.ellipsis,),),
-                 for(int i=0;i<infoData.length;i++)
+                 for(int i=0;i<10;i++)
                    InkWell(
                        onTap: (){
-                         Navigator.pushNamed(context, '/detail', arguments: [infoData[i]] );
+                         Navigator.pushNamed(context, '/detail', arguments: [data_explore[i]] );
                        },
-                       child: BookIcon(bookName: infoData[i]['book'], pathImage:infoData[i]['path'],))
+                       child: BookIcon(bookName: data_explore[i]['title'], pathImage:data_explore[i]['img_link'],))
                ]
                ,
              ),
+             
            ),
+           SizedBox(height: 100,),
+           MaterialButton(onPressed: (){
+             print(data_explore[4]['genre']);
+           }, child: Text('press me'),color: Colors.white,)
          ],
        )
       ),
