@@ -68,7 +68,7 @@ class _authenticationState extends State<authentication> {
                        call_to_server.login(_mail.text, _pasword.text, context);
                        print('done');
                        // call_to_server.exploreData();
-                       call_to_server.searchData('spiritual');
+                       // call_to_server.searchData('spiritual');
                        // Navigator.pushReplacementNamed(context, '/home');
                      },child: const Text('Login'),color: primaryColor,),
                      const SizedBox(height: 20,),

@@ -21,4 +21,13 @@ List data_explore = [];
 
 List data_search = [];
 
+List data_gen1 = [];
+List data_gen2 = [];
+List data_gen3 = [];
+List data_gen4 = [];
+
+
+
 String searchOption = '';
+
+

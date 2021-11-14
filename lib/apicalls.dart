@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 class ApiCalls{
-  String baseURL = 'http://192.168.1.10:8080';
+  String baseURL = 'http://192.168.1.4:8080';
 
   /*
 
@@ -45,6 +45,7 @@ class ApiCalls{
 
     );
     print(response.statusCode); // debug print
+    print(jsonDecode(response.body));
     print(jsonDecode(response.body)['key']);
     auth_token = jsonDecode(response.body)['key'];
     saveToken(auth_token);
@@ -74,13 +75,27 @@ class ApiCalls{
        Navigator.pushReplacementNamed(context, '/auth');
      }
   }
-  searchData(String dataToSearch)async{
+  searchData(String dataToSearch, int gen)async{
 
      if(auth_token!=''){
        Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch'),
            headers: {'Authorization':'token $auth_token'});
        print(jsonDecode(response.body)); //debug print
+       if(gen==0){
        data_search = jsonDecode(response.body)['results'];
+       }
+       else if(gen==1){
+         data_gen1 = jsonDecode(response.body)['results'];
+       }
+       else if(gen==2){
+         data_gen2 = jsonDecode(response.body)['results'];
+       }
+       else if(gen==3){
+         data_gen3 = jsonDecode(response.body)['results'];
+       }
+       else if(gen==4){
+         data_gen4 = jsonDecode(response.body)['results'];
+       }
        print(data_search);
      }
   }

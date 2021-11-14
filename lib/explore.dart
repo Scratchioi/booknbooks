@@ -25,6 +25,11 @@ class _ExploreState extends State<Explore> {
   loadBooks()async{
     await call_to_server.getToken(context);
     await call_to_server.exploreData(context);
+    await call_to_server.searchData('horror', 1);
+    await call_to_server.searchData('comedy', 2);
+    await call_to_server.searchData('adventure', 3);
+    await call_to_server.searchData('murder', 4);
+
     setState(() {
 
     });
@@ -57,11 +62,13 @@ class _ExploreState extends State<Explore> {
                  ),
                  onSubmitted: (newText)async{
                    // search request here
-                   await call_to_server.searchData(newText);
+                   await call_to_server.searchData(newText, 0);
                    Navigator.pushNamed(context, '/search',arguments: data_search);
                  },
                ),
              ),
+             SizedBox(height: 10,),
+             textData(info: 'EXPLORE', toBold: true, size: 24),
              SizedBox(
                height: 250,
                child: ListView(
@@ -78,7 +85,82 @@ class _ExploreState extends State<Explore> {
                ),
                
              ),
-             SizedBox(height: 100,),
+             SizedBox(height: 10,),
+             textData(info: 'HORROR', toBold: true, size: 24),
+             SizedBox(
+               // genre 1
+               height: 250,
+               child: ListView(
+                 scrollDirection: Axis.horizontal,
+                 children: [
+                   for(int i=0;i<data_gen1.length;i++)
+                     InkWell(
+                         onTap: (){
+                           Navigator.pushNamed(context, '/detail', arguments: [data_gen1[i]] );
+                         },
+                         child: BookIcon(bookName: data_gen1[i]['title'], pathImage:data_gen1[i]['img_link'],))
+                 ]
+                 ,
+               ),
+
+             ),
+             SizedBox(height: 10,),
+             textData(info: 'COMEDY', toBold: true, size: 24),
+             SizedBox(
+               // genre 2
+               height: 250,
+               child: ListView(
+                 scrollDirection: Axis.horizontal,
+                 children: [
+                   for(int i=0;i<10;i++)
+                     InkWell(
+                         onTap: (){
+                           Navigator.pushNamed(context, '/detail', arguments: [data_gen2[i]] );
+                         },
+                         child: BookIcon(bookName: data_gen2[i]['title'], pathImage:data_gen2[i]['img_link'],))
+                 ]
+                 ,
+               ),
+
+             ),
+             SizedBox(height: 10,),
+             textData(info: 'ADVENTURE', toBold: true, size: 24),
+             SizedBox(
+               // genre 3
+               height: 250,
+               child: ListView(
+                 scrollDirection: Axis.horizontal,
+                 children: [
+                   for(int i=0;i<10;i++)
+                     InkWell(
+                         onTap: (){
+                           Navigator.pushNamed(context, '/detail', arguments: [data_gen3[i]] );
+                         },
+                         child: BookIcon(bookName: data_gen3[i]['title'], pathImage:data_gen3[i]['img_link'],))
+                 ]
+                 ,
+               ),
+
+             ),
+             SizedBox(height: 10,),
+             textData(info: 'MURDER', toBold: true, size: 24),
+             SizedBox(
+               // genre 4
+               height: 250,
+               child: ListView(
+                 scrollDirection: Axis.horizontal,
+                 children: [
+                   for(int i=0;i<10;i++)
+                     InkWell(
+                         onTap: (){
+                           Navigator.pushNamed(context, '/detail', arguments: [data_gen4[i]] );
+                         },
+                         child: BookIcon(bookName: data_gen4[i]['title'], pathImage:data_gen4[i]['img_link'],))
+                 ]
+                 ,
+               ),
+
+             )
              // MaterialButton(onPressed: (){
              //   print(data_explore);
              // }, child: Text('press me'),color: Colors.white,)

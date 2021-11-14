@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:booknbooks/data.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:http/http.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:path_provider/path_provider.dart';
 
 
