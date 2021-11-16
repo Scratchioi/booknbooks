@@ -19,7 +19,7 @@ ApiCalls call_to_server = ApiCalls();
 
 List data_explore = [];
 
-List data_search = [];
+dynamic data_search;
 
 List data_gen1 = [];
 List data_gen2 = [];

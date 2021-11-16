@@ -11,12 +11,13 @@ class searchPage extends StatefulWidget {
 }
 
 class _searchPageState extends State<searchPage> {
-  List<dynamic>?data = [];
-
+  List data = [];
+  ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as List<dynamic>?;
+    data = data_search['results'];
+
     return Scaffold(
       backgroundColor: secondaryColor,
       appBar: AppBar(
@@ -27,25 +28,32 @@ class _searchPageState extends State<searchPage> {
       body: 
      Padding(
        padding: const EdgeInsets.all(10),
-       child: data_search.length!=0?GridView(
-         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 10,childAspectRatio: .6),
-         children: [
-           for(int i=0;i<data!.length;i++)
-             InkWell(
-               onTap: (){
-                 Navigator.pushNamed(context, '/detail',arguments: [data![i]]);
-               },
-               child: BookIcon(
-                 bookName: data![i]['title'],
-                 pathImage: data![i]['img_link'],
-               ),
-
-
-
-             )
-         ],
-       ):textData(info: 'No results', toBold: true, size: 24),
-     )
+       child: Column(
+         children: <Widget>[data_search['results'].length!=0?Expanded(
+           child: GridView(
+             addAutomaticKeepAlives: true,
+             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 10,childAspectRatio: .6),
+             children: [
+               for(int i=0;i<data.length;i++)
+                InkWell(
+                onTap: (){
+                Navigator.pushNamed(context, '/detail',arguments: [data[i]]);
+                },
+                child: BookIcon(
+                bookName: data[i]['title'],
+                pathImage: data[i]['img_link'],
+                ),
+                )
+             ],
+           )):textData(info: 'No results', toBold: true, size: 24),
+         MaterialButton(onPressed: ()async{
+           await call_to_server.requestData(data_search['next']);
+           setState(() {
+             data.addAll(data_search['results']);
+           });
+         }, child: const Text('Load more'),color: primaryColor,)
+       ]),
+     ),
     );
   }
 }

@@ -21,8 +21,22 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
     super.initState();
     _controller =  TabController(length: 3, vsync: this, initialIndex: 1);
     _controller!.addListener(_handleTabSelection);
-
+    loadBooks();
   }
+  loadBooks()async{
+    await call_to_server.getToken(context);
+    await call_to_server.exploreData(context);
+    await call_to_server.searchData('horror', 1);
+    await call_to_server.searchData('comedy', 2);
+    await call_to_server.searchData('adventure', 3);
+    await call_to_server.searchData('murder', 4);
+
+    setState(() {
+
+    });
+  }
+
+
   void _handleTabSelection(){
     if(_controller!.indexIsChanging){
       switch(_controller!.index){

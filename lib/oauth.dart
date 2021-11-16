@@ -19,12 +19,25 @@ class _authenticationState extends State<authentication> {
   TextEditingController _pasword = TextEditingController();
   TextEditingController _confirmpwd = TextEditingController();
 
+  @override
+  void initState() {
+    // checkLogin();
+  }
 
-
+  checkLogin() async {
+    await call_to_server.getToken(context);
+    if (auth_token != '') {
+      await call_to_server.exploreData(context);
+      await call_to_server.searchData('horror', 1);
+      await call_to_server.searchData('comedy', 2);
+      await call_to_server.searchData('adventure', 3);
+      await call_to_server.searchData('murder', 4);
+      Navigator.pushNamed(context, '/home');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.brown[900],
       body: Center(
@@ -45,6 +58,7 @@ class _authenticationState extends State<authentication> {
                      TextField(
                        controller: _mail,
                        decoration: InputDecoration(
+                         fillColor: Colors.white,
                          label: textData(info: 'Email', toBold: false, size: 24,),
                          hintText: 'Enter registered email address',
                          suffixIcon: const Icon(Icons.supervisor_account, color: Colors.white,
@@ -55,11 +69,8 @@ class _authenticationState extends State<authentication> {
                      TextField(
                        controller: _pasword,
                        decoration: InputDecoration(
-                         hoverColor: Colors.white,
-                         focusColor: Colors.white,
                          label: textData(info:'Password', toBold: false,size:24,),
                          hintText: 'Enter password',
-
                          suffixIcon: const Icon(Icons.lock, color: Colors.white),
                        ),
                      ),
@@ -83,8 +94,6 @@ class _authenticationState extends State<authentication> {
                    ],
                  ),
                ),
-
-
 
                Visibility(visible: !registered,child: Column(
                  children: [

@@ -19,21 +19,21 @@ class _ExploreState extends State<Explore> {
   void initState(){
     super.initState();
     print('refreshing the page..');
-    loadBooks();
+    // loadBooks();
 
   }
-  loadBooks()async{
-    await call_to_server.getToken(context);
-    await call_to_server.exploreData(context);
-    await call_to_server.searchData('horror', 1);
-    await call_to_server.searchData('comedy', 2);
-    await call_to_server.searchData('adventure', 3);
-    await call_to_server.searchData('murder', 4);
-
-    setState(() {
-
-    });
-  }
+  // loadBooks()async{
+  //   await call_to_server.getToken(context);
+  //   await call_to_server.exploreData(context);
+  //   await call_to_server.searchData('horror', 1);
+  //   await call_to_server.searchData('comedy', 2);
+  //   await call_to_server.searchData('adventure', 3);
+  //   await call_to_server.searchData('murder', 4);
+  //
+  //   setState(() {
+  //
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,7 @@ class _ExploreState extends State<Explore> {
                  ),
                  onSubmitted: (newText)async{
                    // search request here
-                   await call_to_server.searchData(newText, 0);
-                   Navigator.pushNamed(context, '/search',arguments: data_search);
+                   Navigator.pushNamed(context, '/search', arguments: await call_to_server.searchData(newText, 0));
                  },
                ),
              ),
