@@ -84,11 +84,16 @@ class CustomUser(AbstractUser):
         return self.email
 
 class user_interaction(models.Model):
-    user=models.ManyToManyField(CustomUser)
-    book=models.ManyToManyField(Book)
+
+    user=models.ForeignKey(CustomUser,on_delete=CASCADE,default=False)
+    book=models.ForeignKey(Book,on_delete=CASCADE,default=False)
     read=models.BooleanField(default=False)
     completed=models.BooleanField(default=False)
     page_num=models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.user) + str(self.book)
+
 
 
     

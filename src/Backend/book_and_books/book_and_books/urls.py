@@ -27,5 +27,6 @@ urlpatterns = [
     path('search/',SerachAPIView.as_view(),name='search'),
     path('update/',UpdateProfileView.as_view(),name='update'),
     path('explore/',exploreAPIView.as_view(),name='explore'),
-    path('genre',genre_based_filter.as_view(),name='genrefilter')
+    path('genre',genre_based_filter.as_view(),name='genrefilter'),
+    path('user-interaction',user_interactions.as_view(),name='user-interaction')
 ]

@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
-from .models import Book,CustomUser
+from .models import Book,CustomUser,user_interaction
 import pandas as pd
 from rest_framework import serializers
 from rest_framework.response import Response
@@ -82,6 +82,39 @@ class genre_based_filter(generics.ListAPIView):
         """
         genre = self.request.data.get('genre')
         return Book.objects.filter(genre__contains=genre)
+
+class user_interactions(views.APIView):
+    def post(self,request):
+        try:
+            user=request.data['user']
+            book=request.data['isbn']
+
+            user=CustomUser.objects.filter(email=user).first()
+            book=Book.objects.filter(isbn=book).first()
+            if user is None:
+                return Response({"error":"user does't exist"},status=status.HTTP_400_BAD_REQUEST)
+            if book is None:
+                return Response({"error":"book does't exist"},status=status.HTTP_400_BAD_REQUEST)
+                
+            print('working')
+            user_i,value=user_interaction.objects.get_or_create(user=user,book=book)
+            
+            print(user,book,user_i)
+            print(user_i.read)
+
+
+            if 'read' in request.data.keys():
+                user_i.read=request.data['read']
+            if 'complete' in request.data.keys():
+                user_i.completed=request.data['complete']
+            if 'page_num' in request.data.keys():
+                user_i.page_num=request.data['page_num']
+            user_i.save()
+            return Response({'success': 'Details updated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'e':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
+    
+
 
 
 
