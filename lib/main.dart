@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:booknbooks/detail.dart';
 import 'package:booknbooks/readbook.dart';
@@ -10,6 +11,7 @@ import 'package:booknbooks/settings.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:booknbooks/data.dart';
 import 'oauth.dart';
+import 'package:path_provider/path_provider.dart';
 // import 'package:booknbooks/bookread.dart';
 
 void main() {
@@ -40,12 +42,30 @@ class _LoadingState extends State<Loading> {
 
 
   @override
-  void initState(){
-    Timer(
-      Duration(seconds: 3),()=>
-      Navigator.pushReplacementNamed(context, '/auth')
-    );
+  initState(){
+    checkLoginState();
   }
+
+  checkLoginState() async {
+    final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    try {
+      var token = await File('${appDocumentsDirectory.path}/token.txt')
+          .readAsString();
+      print('token :-> $token');
+      if (token != '') {
+        auth_token = token;
+        Navigator.popAndPushNamed(context, '/home');
+      }
+      else {
+        Navigator.popAndPushNamed(context, '/auth');
+      }
+    }
+    catch(e) {
+      print('error occured: ${e.toString()}');
+      Navigator.popAndPushNamed(context, '/auth');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
