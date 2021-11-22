@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action, permission_classes
 from rest_framework import viewsets,status,generics,views,filters
-from .serializer import CustomUserSerializer, BookSerializer
+from .serializer import CustomUserSerializer, BookSerializer, user_interaction_serializer
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -34,6 +34,16 @@ class UpdateProfileView(views.APIView):
         # 'token', in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
 
     # @swagger_auto_schema(manual_parameters=[token_param_config])
+    def get(self, request):
+        user=request.user
+        if user:
+            serializer=CustomUserSerializer(user)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'token error'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
     def post(self, request):
         #first_name,last_name,username,coutnry_code,phone_no
 
@@ -83,7 +93,33 @@ class genre_based_filter(generics.ListAPIView):
         genre = self.request.data.get('genre')
         return Book.objects.filter(genre__contains=genre)
 
+
 class user_interactions(views.APIView):
+    def get(self,request):
+        try:
+            user=user_interaction.objects.filter(user=request.user)
+            dic={'user':request.user.email}
+            j=1
+            for i in user:
+                serializer=BookSerializer(i.book)
+
+                dic[j]=serializer.data
+                dic[j]['read']=i.read
+                dic[j]['completed']=i.completed
+                dic[j]['page_num']=i.page_num
+                dic[j]['read_list']=i.read_list
+                j+=1
+
+            
+            return Response(dic,status=status.HTTP_200_OK)
+        except Exception as e:
+            Response({'error':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
     def post(self,request):
         try:
             user=request.data['user']
@@ -115,6 +151,10 @@ class user_interactions(views.APIView):
             return Response({'success': 'Details updated successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'e':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
     
 
