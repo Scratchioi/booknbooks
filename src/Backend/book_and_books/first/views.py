@@ -101,16 +101,14 @@ class user_interactions(views.APIView):
             dic={'user':request.user.email}
             j=1
             for i in user:
-                serializer=BookSerializer(i.book)
-
-                dic[j]=serializer.data
-                dic[j]['read']=i.read
-                dic[j]['completed']=i.completed
-                dic[j]['page_num']=i.page_num
-                dic[j]['read_list']=i.read_list
-                j+=1
-
-            
+                if i.read_list:
+                    serializer=BookSerializer(i.book)
+                    dic[j]=serializer.data
+                    dic[j]['read']=i.read
+                    dic[j]['completed']=i.completed
+                    dic[j]['page_num']=i.page_num
+                    dic[j]['read_list']=i.read_list
+                    j+=1
             return Response(dic,status=status.HTTP_200_OK)
         except Exception as e:
             Response({'error':f'{e}'},status=status.HTTP_400_BAD_REQUEST)

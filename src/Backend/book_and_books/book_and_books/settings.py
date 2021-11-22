@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-38tqw4$w8cfx^#d&3rp5jz-1#xgytac!z^n)d51%&byqg4+m$=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.10','192.168.1.2']
 
 
 # Application definition
@@ -84,7 +84,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
