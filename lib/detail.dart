@@ -96,10 +96,13 @@ class _BookDetailState extends State<BookDetail> {
   Future<File> getFile() async {
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
     String filePath = '${appDocumentsDirectory.path}/${data![0]['title']}.pdf';
+    print(filePath);
     return File(filePath);
   }
 
   checkInDownloads()async{
+    final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocumentsDirectory.path}/${data![0]['title']}.pdf';
      List<dynamic> booksDownloads = await DatabaseHelper.instance.queryAll('table$active_user');
      bool found = false;
      for(int i=0;i<booksDownloads.length;i++){
@@ -110,7 +113,7 @@ class _BookDetailState extends State<BookDetail> {
 
        }
      }
-     Navigator.pushNamed(context, '/readbook',arguments: [data,found]);
+     Navigator.pushNamed(context, '/readbook',arguments: [data,found, filePath]);
   }
 
   Future<void> downloadBook() async {

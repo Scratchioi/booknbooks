@@ -15,10 +15,12 @@ class bookRead extends StatefulWidget {
 class _bookReadState extends State<bookRead> {
 
   List<dynamic>? data= [];
-  getFileHere(String bookname)async{
+
+  Future<String> getFileHere(String bookname)async{
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
     String filePath = '${appDocumentsDirectory.path}/${bookname}.pdf';
-    return File(filePath);
+
+    return filePath;
   }
 
   @override
@@ -29,7 +31,7 @@ class _bookReadState extends State<bookRead> {
         body:
         !data![1]?SfPdfViewer.network(
             data![0][0]['get']):SfPdfViewer.file(
-            getFileHere(data![0][0]['book'])),
+             File(data![2])),
 
       ),
     );

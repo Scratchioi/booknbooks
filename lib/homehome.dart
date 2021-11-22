@@ -15,7 +15,9 @@ class HomeHome extends StatefulWidget {
 class _HomeHomeState extends State<HomeHome> {
 
   updateDownloads()async{
+    print('called');
     downloads = await DatabaseHelper.instance.queryAll('table$active_user');
+    print('data loadied');
   }
 
   @override

@@ -9,17 +9,17 @@ class DatabaseHelper{
   static const _dbVersion = 1;
   static const tableName = 'MyUsers';
   static const columnId = '_id';
-  static const columnName = 'userName';
-  static const columnBook = 'book';
+  static const columnName = 'name';
+  static const columnBook = 'title';
   static const columnEmail = 'email';
-  static const columnPage = 'pageNumber';
+  static const columnPage = 'page_num';
   static const columnISBN = 'isbn';
   static const columnCompleted = 'completed';
-  static const columnReading = 'reading';
+  static const columnReading = 'read';
   static const columnRating = 'rating';
-  static const columnTotalPages = 'pagesTotal';
+  static const columnTotalPages = 'pages';
   static const columnDescription = 'description';
-  static const columnAuthorName = 'authorName';
+  static const columnAuthorName = 'Author';
   static const columnImgLink = 'img_link';
 
 
@@ -92,14 +92,15 @@ class DatabaseHelper{
     Database? db = await instance.database;
     return await db!.rawQuery('''
     CREATE TABLE $tableName(
-    $columnId INTEGER NOT NULL,
+    $columnId INTEGER PRIMARY KEY,
     $columnEmail TEXT NOT NULL, 
     $columnISBN TEXT NOT NULL, 
     $columnRating TEXT NOT NULL,
     $columnAuthorName TEXT NOT NULL,
     $columnDescription TEXT NOT NULL,
     $columnTotalPages TEXT NOT NULL,
-    $columnBook TEXT NOT NULL
+    $columnBook TEXT NOT NULL,
+    $columnImgLink TEXT NOT NULL
     )
     ''');
   }

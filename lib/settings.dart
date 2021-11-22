@@ -62,7 +62,15 @@ class _SettingsState extends State<Settings> {
                   child: Text('Logout',style: TextStyle(
                     color: Colors.white
                   ),)
-                    ,color: Colors.red,)
+                    ,color: Colors.red,),
+                  MaterialButton(onPressed: ()async{
+                    await DatabaseHelper.instance.dropTable('table$active_user');
+                    await DatabaseHelper.instance.createDownloadTable('table$active_user');
+                  },
+                  child: Text('Delete All Books', style: TextStyle(
+                    color: Colors.white
+                  ),),
+                  color: Colors.red,)
                 ],
 
 

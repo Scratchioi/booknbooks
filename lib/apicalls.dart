@@ -27,7 +27,7 @@ class ApiCalls{
     Response response = await post(Uri.parse(baseURL+'/rest-auth/registration/'),
         body: data);
     print(response.statusCode);
-    if(response.statusCode==200){
+    if(response.statusCode>=200 && response.statusCode<300){
       print(jsonDecode(response.body));
       essentials().showToast('Registration Successful');
       return Navigator.pushReplacementNamed(context, '/auth');
@@ -96,7 +96,7 @@ class ApiCalls{
      }
   }
   searchData(String dataToSearch, int gen)async{
-    int num = Random().nextInt(8)+1;
+
      if(auth_token!=''){
 
        // print(jsonDecode(response.body)); //debug print
@@ -106,21 +106,25 @@ class ApiCalls{
        data_search = jsonDecode(response.body);
        }
        else if(gen==1){
+         int num = Random().nextInt(10)+1;
          Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
              headers: {'Authorization':'token $auth_token'});
          data_gen1 = jsonDecode(response.body)['results'];
        }
        else if(gen==2){
+         int num = Random().nextInt(2)+1;
          Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
              headers: {'Authorization':'token $auth_token'});
          data_gen2 = jsonDecode(response.body)['results'];
        }
        else if(gen==3){
+         int num = Random().nextInt(20)+1;
          Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
              headers: {'Authorization':'token $auth_token'});
          data_gen3 = jsonDecode(response.body)['results'];
        }
        else if(gen==4){
+         int num = Random().nextInt(2)+1;
          Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
              headers: {'Authorization':'token $auth_token'});
          data_gen4 = jsonDecode(response.body)['results'];
