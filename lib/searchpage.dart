@@ -46,12 +46,14 @@ class _searchPageState extends State<searchPage> {
                 )
              ],
            )):textData(info: 'No results', toBold: true, size: 24),
-         MaterialButton(onPressed: ()async{
-           await call_to_server.requestData(data_search['next']);
-           setState(() {
-             data.addAll(data_search['results']);
-           });
-         }, child: const Text('Load more'),color: primaryColor,)
+         Visibility(
+           child: MaterialButton(onPressed: ()async{
+             await call_to_server.requestData(data_search['next']);
+             setState(() {
+               data.addAll(data_search['results']);
+             });
+           }, child: const Text('Load more'),color: primaryColor,),
+            visible: data_search['results'].length!=0?true:false,)
        ]),
      ),
     );

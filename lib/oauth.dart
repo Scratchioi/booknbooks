@@ -18,23 +18,23 @@ class _authenticationState extends State<authentication> {
   // TextEditingController _name = TextEditingController();
   TextEditingController _pasword = TextEditingController();
   TextEditingController _confirmpwd = TextEditingController();
-
-  @override
-  void initState() {
-    // checkLogin();
-  }
-
-  checkLogin() async {
-    await call_to_server.getToken(context);
-    if (auth_token != '') {
-      await call_to_server.exploreData(context);
-      await call_to_server.searchData('horror', 1);
-      await call_to_server.searchData('comedy', 2);
-      await call_to_server.searchData('adventure', 3);
-      await call_to_server.searchData('murder', 4);
-      Navigator.pushNamed(context, '/home');
-    }
-  }
+  //
+  // @override
+  // void initState() {
+  //   checkLogin();
+  // }
+  //
+  // checkLogin() async {
+  //   await call_to_server.getToken(context);
+  //   if (auth_token != '') {
+  //     await call_to_server.exploreData(context);
+  //     await call_to_server.searchData('horror', 1);
+  //     await call_to_server.searchData('comedy', 2);
+  //     await call_to_server.searchData('adventure', 3);
+  //     await call_to_server.searchData('murder', 4);
+  //     Navigator.pushNamed(context, '/home');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

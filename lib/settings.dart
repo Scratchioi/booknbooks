@@ -15,8 +15,19 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  getUserDATA()async{
+  String email = '';
+
+  getUserData()async{
+    email = (await DatabaseHelper.instance.getUser(active_user))[0][DatabaseHelper.columnEmail];
+    print('email >> $email');
+    setState(() {});
     // List userdata = await DatabaseHelper.instance.queryAll();
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
   }
 
   @override
@@ -35,7 +46,7 @@ class _SettingsState extends State<Settings> {
                   Row(
                     children: [
                       textData(info: 'User email : ', toBold: false, size: 18),
-                      textData(info: active_user, toBold: true, size: 24),
+                      textData(info: email, toBold: true, size: 24),
                     ],
                   ),
                   MaterialButton(onPressed: ()async{
@@ -45,6 +56,7 @@ class _SettingsState extends State<Settings> {
                     // todo: implement the auto-loading of the token at the time beginning
                     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
                     await File('${appDocumentsDirectory.path}/token.txt').delete();
+                    await File('${appDocumentsDirectory.path}/activeUser.txt').delete();
                     Navigator.pushReplacementNamed(context, '/auth');
                   },
                   child: Text('Logout',style: TextStyle(

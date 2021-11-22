@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:booknbooks/db.dart';
 import 'package:booknbooks/detail.dart';
 import 'package:booknbooks/readbook.dart';
 import 'package:booknbooks/searchpage.dart';
@@ -12,7 +13,6 @@ import 'package:booknbooks/widgets.dart';
 import 'package:booknbooks/data.dart';
 import 'oauth.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:booknbooks/bookread.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -47,14 +47,17 @@ class _LoadingState extends State<Loading> {
   }
 
   checkLoginState() async {
+    print('---started login check---');
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
     try {
       var token = await File('${appDocumentsDirectory.path}/token.txt')
           .readAsString();
+      var email = await File('${appDocumentsDirectory.path}/activeUser.txt')
+          .readAsString();
       print('token :-> $token');
       if (token != '') {
         auth_token = token;
-        active_user = await File('${appDocumentsDirectory.path}/activeUser.txt').readAsString();
+        active_user = (await DatabaseHelper.instance.querySome(email))[0][DatabaseHelper.columnId];
         Navigator.popAndPushNamed(context, '/home');
       }
       else {
@@ -65,6 +68,7 @@ class _LoadingState extends State<Loading> {
       print('error occured: ${e.toString()}');
       Navigator.popAndPushNamed(context, '/auth');
     }
+    print('---login check completed---');
   }
 
   @override

@@ -10,7 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 class ApiCalls{
-  String baseURL = 'http://192.168.1.2:8080';
+  // String baseURL = 'http://192.168.1.2:8080';
+  String baseURL = 'http://192.168.18.9:4454';
 
   /*
 
@@ -49,26 +50,32 @@ class ApiCalls{
     print(jsonDecode(response.body));
     print(jsonDecode(response.body)['key']);
     auth_token = jsonDecode(response.body)['key'];
-    active_user = email;
-    saveToken(auth_token);
-    if(response.statusCode==200){
+    // active_user = email;
+    if(response.statusCode>=200 && response.statusCode<300){
       essentials().showToast('Logged in Successfully');
 
-      List usertable = await DatabaseHelper.instance.querySome(active_user);
+      List usertable = await DatabaseHelper.instance.querySome(email);
       if(usertable.isNotEmpty){
         // read the file and store the data
+        active_user = usertable[0][DatabaseHelper.columnId];
+        print('userId -> $active_user');
         downloads = await DatabaseHelper.instance.queryAll('table$active_user');
       }
       else{
-        // create the table
+        // todo: proper active_user, create the table
+        var row = <String, dynamic>{
+          DatabaseHelper.columnEmail: email,
+          DatabaseHelper.columnName: ''
+        };
+        active_user = await DatabaseHelper.instance.insert(row);
         await DatabaseHelper.instance.createDownloadTable('table$active_user');
       }
-
+      saveToken(auth_token);
       print('inside');
-      return Navigator.pushNamed(context, '/home');
+      return Navigator.popAndPushNamed(context, '/home');
     }
     else{
-      essentials().showToast('Login Failed');
+      essentials().showToast('Login Failed: ${jsonDecode(response.body).toString()}');
     }
   }
   exploreData(BuildContext context)async{
@@ -148,7 +155,7 @@ class ApiCalls{
     File file2 = File('$filePath/activeUser.txt');
     file.writeAsString(token);
     // user email
-    file2.writeAsString(active_user);
+    file2.writeAsString((await DatabaseHelper.instance.getUser(active_user))[0]['email']);
 
   }
 

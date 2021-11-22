@@ -1,6 +1,3 @@
-
-
-
 import 'dart:io';
 import 'dart:async';
 import 'package:path/path.dart';
@@ -47,15 +44,15 @@ class DatabaseHelper{
     db.execute(
         '''
       CREATE TABLE $_tableName (
-      $columnId INTEGER PRIMARY KEY,
-      $columnName TEXT NOT NULL,
+      $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+      $columnName TEXT,
       $columnEmail TEXT NOT NULL
       )
       '''
     );
 
   }
-  Future<int> insert(Map<String,dynamic>row) async{
+  Future<int> insert(Map<String,dynamic> row) async{
     Database? db = await instance.database;
     return await db!.insert(_tableName, row);
   }
@@ -67,21 +64,20 @@ class DatabaseHelper{
     Database? db = await instance.database;
     return await db!.query(_tableName, columns: [columnId],where:'${DatabaseHelper.columnEmail} = ?',whereArgs: [name]);
   }
+  Future<List<Map<String,dynamic>>>getUser(int id)async{
+    Database? db = await instance.database;
+    return await db!.query(_tableName, columns: [columnEmail],where:'${DatabaseHelper.columnId} = ?',whereArgs: [id]);
+  }
   Future<int>update(Map<String,dynamic> row) async{
     Database? db = await instance.database;
     int id = row[columnId];
     return await db!.update(_tableName, row, where: '$columnId = ?', whereArgs: [id]);
-
   }
   Future<int> delete(int id)async{
     Database? db = await instance.database;
     print('id deleted successfully'); // debug print
     return await db!.delete(_tableName,where: '$columnId = ?', whereArgs: [id]);
   }
-
-
-
-
 
   Future<dynamic>dropTable(String tableName)async{
     print('table deleted successfully'); //debug print
@@ -102,7 +98,7 @@ class DatabaseHelper{
     $columnAuthorName TEXT NOT NULL,
     $columnDescription TEXT NOT NULL,
     $columnTotalPages TEXT NOT NULL,
-    $columnBook TEXT NOT NULL,
+    $columnBook TEXT NOT NULL
     )
     ''');
   }
