@@ -20,7 +20,6 @@ class _ExploreState extends State<Explore> {
     super.initState();
     print('refreshing the page..');
     // loadBooks();
-
   }
   // loadBooks()async{
   //   await call_to_server.getToken(context);

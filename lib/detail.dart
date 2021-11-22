@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:booknbooks/db.dart';
 import 'package:flutter/material.dart';
 import 'package:booknbooks/data.dart';
 import 'package:booknbooks/widgets.dart';
@@ -74,7 +75,7 @@ class _BookDetailState extends State<BookDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MaterialButton(onPressed: (){
-                    Navigator.pushNamed(context, '/readbook',arguments: data);
+                    checkInDownloads();
                   },child: Text('Read Now',style: TextStyle(fontSize: 18, color: Colors.black),),color: Colors.white,),
                   const SizedBox(width: 10,),
                   MaterialButton(
@@ -98,13 +99,27 @@ class _BookDetailState extends State<BookDetail> {
     return File(filePath);
   }
 
+  checkInDownloads()async{
+     List<dynamic> booksDownloads = await DatabaseHelper.instance.queryAll(active_user.toString());
+     bool found = false;
+     for(int i=0;i<booksDownloads.length;i++){
+       if(booksDownloads[i][DatabaseHelper.columnBook]==data![0]['book']){
+         // open from the file
+         found = true;
+         break;
+
+       }
+     }
+     Navigator.pushNamed(context, '/readbook',arguments: [data,found]);
+  }
+
   Future<void> downloadBook() async {
     // String url = data![0]['GET'];
 
     setState(() {
       downloading = true;
     });
-    String url = 'https://sherlock-holm.es/stories/pdf/a4/1-sided/cnus.pdf';
+    String url = data![0]['get'];
 
     Request request = Request('GET', Uri.parse(url));
     StreamedResponse response = await Client().send(request);
@@ -121,6 +136,7 @@ class _BookDetailState extends State<BookDetail> {
       onDone: () async {
         file.writeAsBytes(bytes);
         print(bytes.length);
+        // todo : call db query for updating download table
 
         setState(() {
           downloaded = true;

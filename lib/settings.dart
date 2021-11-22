@@ -16,7 +16,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
 
   getUserDATA()async{
-    List userdata = await DatabaseHelper.instance.queryAll();
+    // List userdata = await DatabaseHelper.instance.queryAll();
   }
 
   @override
@@ -31,7 +31,13 @@ class _SettingsState extends State<Settings> {
               Column(
   mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
+                  const SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      textData(info: 'User email : ', toBold: false, size: 18),
+                      textData(info: active_user, toBold: true, size: 24),
+                    ],
+                  ),
                   MaterialButton(onPressed: ()async{
                     essentials().showToast('Logging out...');
                     auth_token = '';

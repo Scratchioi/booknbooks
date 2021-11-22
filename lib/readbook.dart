@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:epub_viewer/epub_viewer.dart';
@@ -13,7 +15,11 @@ class bookRead extends StatefulWidget {
 class _bookReadState extends State<bookRead> {
 
   List<dynamic>? data= [];
-
+  getFileHere(String bookname)async{
+    final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocumentsDirectory.path}/${bookname}.pdf';
+    return File(filePath);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,9 @@ class _bookReadState extends State<bookRead> {
     return SafeArea(
       child: Scaffold(
         body:
-        SfPdfViewer.network(data![0]['get']),
+        !data![1]?SfPdfViewer.network(
+            data![0][0]['get']):SfPdfViewer.file(
+            getFileHere(data![0][0]['book'])),
 
       ),
     );

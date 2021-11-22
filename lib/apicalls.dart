@@ -52,7 +52,9 @@ class ApiCalls{
     saveToken(auth_token);
     if(response.statusCode==200){
       essentials().showToast('Logged in Successfully');
-      // receive token and store in a file
+      //todo: we have to check for the downloaded table
+
+
       print('inside');
       return Navigator.pushNamed(context, '/home');
     }
