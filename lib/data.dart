@@ -29,6 +29,7 @@ List data_gen4 = [];
 
 
 List downloads = [];
+Map myReadingList = {};
 String useremail = '';
 
 String searchOption = '';

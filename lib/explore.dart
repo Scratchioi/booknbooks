@@ -114,7 +114,14 @@ class _ExploreState extends State<Explore> {
                      InkWell(
                          onTap: (){
                            Navigator.pushNamed(context, '/detail', arguments: [data_gen2[i]] );
-                         },
+                         },onLongPress: (){
+                           call_to_server.userInteraction(false, {
+                             'user':useremail,
+                             'isbn':data_gen2[i]['isbn'],
+                             'read_list':'True'
+                           });
+                           essentials().showToast('Book Added to list');
+                     },
                          child: BookIcon(bookName: data_gen2[i]['title'], pathImage:data_gen2[i]['img_link'],))
                  ]
                  ,

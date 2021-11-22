@@ -173,4 +173,28 @@ class ApiCalls{
 
   }
 
+  userInteraction(bool toggle, Map<String,dynamic> bookdata)async{
+     Uri url = Uri.parse(baseURL+'/user-interaction');
+     if(toggle){
+       Response response = await get(url,
+           headers: {'Authorization': 'token $auth_token'});
+           print(jsonDecode(response.body));
+           myReadingList = jsonDecode(response.body);
+
+     }
+     else{
+       Response response = await post(url,body: bookdata,
+       // {
+       //   'user':useremail,
+       //   'book':bookdata[0],
+       //   'read':bookdata[1],
+       //   'completed': bookdata[2],
+       //   'page_num':bookdata[3],
+       //   'read_list':bookdata[4]
+       // },
+           headers: {'Authorization': 'token $auth_token'});
+       print(jsonDecode(response.body));
+     }
+  }
+
 }

@@ -26,6 +26,8 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
     loadBooks();
   }
   loadBooks()async{
+
+     // todo: make the genres selection user based
     await call_to_server.getToken(context);
     await call_to_server.exploreData(context);
     await call_to_server.searchData('horror', 1);
@@ -66,7 +68,7 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
         controller: _controller,
         children: [
           // home page
-        HomeHome(),
+          HomeHome(),
           Explore(),
           Settings()
         ],
