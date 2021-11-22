@@ -100,7 +100,7 @@ class _BookDetailState extends State<BookDetail> {
   }
 
   checkInDownloads()async{
-     List<dynamic> booksDownloads = await DatabaseHelper.instance.queryAll(active_user.toString());
+     List<dynamic> booksDownloads = await DatabaseHelper.instance.queryAll('table$active_user');
      bool found = false;
      for(int i=0;i<booksDownloads.length;i++){
        if(booksDownloads[i][DatabaseHelper.columnBook]==data![0]['book']){

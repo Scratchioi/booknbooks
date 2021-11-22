@@ -142,10 +142,10 @@ class ApiCalls{
   }
   saveToken(String token)async{
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocumentsDirectory.path}';
+    String filePath = appDocumentsDirectory.path;
 
-    File file = File('${filePath}/token.txt');
-    File file2 = File('${filePath}/activeUser.txt');
+    File file = File('$filePath/token.txt');
+    File file2 = File('$filePath/activeUser.txt');
     file.writeAsString(token);
     // user email
     file2.writeAsString(active_user);
