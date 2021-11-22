@@ -11,6 +11,7 @@ import 'package:booknbooks/explore.dart';
 import 'package:booknbooks/settings.dart';
 import 'package:booknbooks/widgets.dart';
 import 'package:booknbooks/data.dart';
+import 'homehome.dart';
 import 'oauth.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -26,6 +27,7 @@ void main() {
       '/auth':(context)=>authentication(),
       '/readbook':(context)=>bookRead(),
       '/search' : (context)=>searchPage(),
+      '/homehome': (context)=>HomeHome()
 
     }
   ));
@@ -57,7 +59,9 @@ class _LoadingState extends State<Loading> {
       print('token :-> $token');
       if (token != '') {
         auth_token = token;
+        useremail = email;
         active_user = (await DatabaseHelper.instance.querySome(email))[0][DatabaseHelper.columnId];
+        downloads = await DatabaseHelper.instance.queryAll('table$active_user');
         Navigator.popAndPushNamed(context, '/home');
       }
       else {

@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseHelper{
   static const _dbname = 'Rooms.db';
   static const _dbVersion = 1;
-  static const _tableName = 'MyUsers';
+  static const tableName = 'MyUsers';
   static const columnId = '_id';
   static const columnName = 'userName';
   static const columnBook = 'book';
@@ -20,6 +20,7 @@ class DatabaseHelper{
   static const columnTotalPages = 'pagesTotal';
   static const columnDescription = 'description';
   static const columnAuthorName = 'authorName';
+  static const columnImgLink = 'img_link';
 
 
   DatabaseHelper._privateConstructor();
@@ -43,7 +44,7 @@ class DatabaseHelper{
     // user table
     db.execute(
         '''
-      CREATE TABLE $_tableName (
+      CREATE TABLE $tableName (
       $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
       $columnName TEXT,
       $columnEmail TEXT NOT NULL
@@ -52,9 +53,9 @@ class DatabaseHelper{
     );
 
   }
-  Future<int> insert(Map<String,dynamic> row) async{
+  Future<int> insert(Map<String,dynamic> row, String tableName) async{
     Database? db = await instance.database;
-    return await db!.insert(_tableName, row);
+    return await db!.insert(tableName, row);
   }
   Future<List<Map<String,dynamic>>>queryAll(String tableName)async{
     Database? db = await instance.database;
@@ -62,21 +63,21 @@ class DatabaseHelper{
   }
   Future<List<Map<String,dynamic>>>querySome(String name)async{
     Database? db = await instance.database;
-    return await db!.query(_tableName, columns: [columnId],where:'${DatabaseHelper.columnEmail} = ?',whereArgs: [name]);
+    return await db!.query(tableName, columns: [columnId],where:'${DatabaseHelper.columnEmail} = ?',whereArgs: [name]);
   }
   Future<List<Map<String,dynamic>>>getUser(int id)async{
     Database? db = await instance.database;
-    return await db!.query(_tableName, columns: [columnEmail],where:'${DatabaseHelper.columnId} = ?',whereArgs: [id]);
+    return await db!.query(tableName, columns: [columnEmail],where:'${DatabaseHelper.columnId} = ?',whereArgs: [id]);
   }
   Future<int>update(Map<String,dynamic> row) async{
     Database? db = await instance.database;
     int id = row[columnId];
-    return await db!.update(_tableName, row, where: '$columnId = ?', whereArgs: [id]);
+    return await db!.update(tableName, row, where: '$columnId = ?', whereArgs: [id]);
   }
   Future<int> delete(int id)async{
     Database? db = await instance.database;
     print('id deleted successfully'); // debug print
-    return await db!.delete(_tableName,where: '$columnId = ?', whereArgs: [id]);
+    return await db!.delete(tableName,where: '$columnId = ?', whereArgs: [id]);
   }
 
   Future<dynamic>dropTable(String tableName)async{

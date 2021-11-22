@@ -10,8 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 class ApiCalls{
-  // String baseURL = 'http://192.168.1.2:8080';
-  String baseURL = 'http://192.168.18.9:4454';
+  String baseURL = 'http://192.168.1.2:8080';
+  // String baseURL = 'http://192.168.18.9:4454';
 
   /*
 
@@ -53,6 +53,7 @@ class ApiCalls{
     // active_user = email;
     if(response.statusCode>=200 && response.statusCode<300){
       essentials().showToast('Logged in Successfully');
+      useremail = email;
 
       List usertable = await DatabaseHelper.instance.querySome(email);
       if(usertable.isNotEmpty){
@@ -67,7 +68,7 @@ class ApiCalls{
           DatabaseHelper.columnEmail: email,
           DatabaseHelper.columnName: ''
         };
-        active_user = await DatabaseHelper.instance.insert(row);
+        active_user = await DatabaseHelper.instance.insert(row, DatabaseHelper.tableName);
         await DatabaseHelper.instance.createDownloadTable('table$active_user');
       }
       saveToken(auth_token);
@@ -95,24 +96,33 @@ class ApiCalls{
      }
   }
   searchData(String dataToSearch, int gen)async{
-
+    int num = Random().nextInt(8)+1;
      if(auth_token!=''){
-       Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch'),
-           headers: {'Authorization':'token $auth_token'});
-       print(jsonDecode(response.body)); //debug print
+
+       // print(jsonDecode(response.body)); //debug print
        if(gen==0){
+         Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch'),
+             headers: {'Authorization':'token $auth_token'});
        data_search = jsonDecode(response.body);
        }
        else if(gen==1){
+         Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
+             headers: {'Authorization':'token $auth_token'});
          data_gen1 = jsonDecode(response.body)['results'];
        }
        else if(gen==2){
+         Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
+             headers: {'Authorization':'token $auth_token'});
          data_gen2 = jsonDecode(response.body)['results'];
        }
        else if(gen==3){
+         Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
+             headers: {'Authorization':'token $auth_token'});
          data_gen3 = jsonDecode(response.body)['results'];
        }
        else if(gen==4){
+         Response response = await get(Uri.parse(baseURL+'/search?search=$dataToSearch&page=$num'),
+             headers: {'Authorization':'token $auth_token'});
          data_gen4 = jsonDecode(response.body)['results'];
        }
        print(data_search);

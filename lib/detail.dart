@@ -95,7 +95,7 @@ class _BookDetailState extends State<BookDetail> {
 
   Future<File> getFile() async {
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocumentsDirectory.path}/${data![0]['book']}.pdf';
+    String filePath = '${appDocumentsDirectory.path}/${data![0]['title']}.pdf';
     return File(filePath);
   }
 
@@ -103,7 +103,7 @@ class _BookDetailState extends State<BookDetail> {
      List<dynamic> booksDownloads = await DatabaseHelper.instance.queryAll('table$active_user');
      bool found = false;
      for(int i=0;i<booksDownloads.length;i++){
-       if(booksDownloads[i][DatabaseHelper.columnBook]==data![0]['book']){
+       if(booksDownloads[i][DatabaseHelper.columnBook]==data![0]['title']){
          // open from the file
          found = true;
          break;
@@ -115,11 +115,12 @@ class _BookDetailState extends State<BookDetail> {
 
   Future<void> downloadBook() async {
     // String url = data![0]['GET'];
-
+    print('hello');
     setState(() {
       downloading = true;
     });
-    String url = data![0]['get'];
+    String url = data![0]['cloudflare'];
+    print(url);
 
     Request request = Request('GET', Uri.parse(url));
     StreamedResponse response = await Client().send(request);
@@ -137,7 +138,18 @@ class _BookDetailState extends State<BookDetail> {
         file.writeAsBytes(bytes);
         print(bytes.length);
         // todo : call db query for updating download table
-
+        var row = <String, dynamic>{
+          DatabaseHelper.columnEmail: useremail,
+          DatabaseHelper.columnISBN: data![0]['isbn'],
+          DatabaseHelper.columnBook: data![0]['title'],
+          DatabaseHelper.columnTotalPages: data![0]['pages'],
+          DatabaseHelper.columnDescription: data![0]['description'],
+          DatabaseHelper.columnRating: data![0]['rating'],
+          DatabaseHelper.columnAuthorName: data![0]['Author'],
+          DatabaseHelper.columnImgLink:data![0]['img_link']
+        };
+        dynamic hints = await DatabaseHelper.instance.insert(row, 'table$active_user');
+        print('data savdd in downloads $hints');
         setState(() {
           downloaded = true;
           downloading = false;

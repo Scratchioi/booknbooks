@@ -1,6 +1,8 @@
 import 'package:booknbooks/data.dart';
 import 'package:booknbooks/explore.dart';
+import 'package:booknbooks/homehome.dart';
 import 'package:booknbooks/settings.dart';
+import 'package:booknbooks/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +65,8 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin{
         physics:NeverScrollableScrollPhysics() ,
         controller: _controller,
         children: [
-          Scaffold(),
+          // home page
+        HomeHome(),
           Explore(),
           Settings()
         ],

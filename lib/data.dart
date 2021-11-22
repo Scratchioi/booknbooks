@@ -29,7 +29,7 @@ List data_gen4 = [];
 
 
 List downloads = [];
-
+String useremail = '';
 
 String searchOption = '';
 
