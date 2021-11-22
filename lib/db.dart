@@ -65,7 +65,7 @@ class DatabaseHelper{
   }
   Future<List<Map<String,dynamic>>>querySome(String name)async{
     Database? db = await instance.database;
-    return await db!.query(_tableName, columns: [columnId],where:'${DatabaseHelper.columnName} = ?',whereArgs: [name]);
+    return await db!.query(_tableName, columns: [columnId],where:'${DatabaseHelper.columnEmail} = ?',whereArgs: [name]);
   }
   Future<int>update(Map<String,dynamic> row) async{
     Database? db = await instance.database;

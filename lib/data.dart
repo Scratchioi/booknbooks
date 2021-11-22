@@ -28,6 +28,8 @@ List data_gen3 = [];
 List data_gen4 = [];
 
 
+List downloads = [];
+
 
 String searchOption = '';
 

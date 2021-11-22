@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:booknbooks/data.dart';
+import 'package:booknbooks/db.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:booknbooks/widgets.dart';
@@ -52,8 +53,16 @@ class ApiCalls{
     saveToken(auth_token);
     if(response.statusCode==200){
       essentials().showToast('Logged in Successfully');
-      //todo: we have to check for the downloaded table
 
+      List usertable = await DatabaseHelper.instance.querySome(active_user);
+      if(usertable.isNotEmpty){
+        // read the file and store the data
+        downloads = await DatabaseHelper.instance.queryAll('table$active_user');
+      }
+      else{
+        // create the table
+        await DatabaseHelper.instance.createDownloadTable('table$active_user');
+      }
 
       print('inside');
       return Navigator.pushNamed(context, '/home');
