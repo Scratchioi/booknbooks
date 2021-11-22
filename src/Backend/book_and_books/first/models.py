@@ -90,6 +90,7 @@ class user_interaction(models.Model):
     read=models.BooleanField(default=False)
     completed=models.BooleanField(default=False)
     page_num=models.IntegerField(default=0)
+    read_list=models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user) + str(self.book)

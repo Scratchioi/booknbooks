@@ -109,10 +109,13 @@ class user_interactions(views.APIView):
                 user_i.completed=request.data['complete']
             if 'page_num' in request.data.keys():
                 user_i.page_num=request.data['page_num']
+            if 'read_list' in request.data.keys():
+                user_i.read_list=request.data['read_list']
             user_i.save()
             return Response({'success': 'Details updated successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'e':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
+
     
 
 
