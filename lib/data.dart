@@ -14,6 +14,7 @@ List<Widget> TabData = [
 
 
 String auth_token = '';
+String active_user = '';
 
 ApiCalls call_to_server = ApiCalls();
 

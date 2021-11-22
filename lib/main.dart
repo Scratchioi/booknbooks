@@ -54,6 +54,7 @@ class _LoadingState extends State<Loading> {
       print('token :-> $token');
       if (token != '') {
         auth_token = token;
+        active_user = await File('${appDocumentsDirectory.path}/activeUser.txt').readAsString();
         Navigator.popAndPushNamed(context, '/home');
       }
       else {

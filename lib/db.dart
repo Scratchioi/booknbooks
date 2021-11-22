@@ -12,7 +12,18 @@ class DatabaseHelper{
   static const _dbVersion = 1;
   static const _tableName = 'MyUsers';
   static const columnId = '_id';
-  static const columnName = 'id_Name';
+  static const columnName = 'userName';
+  static const columnBook = 'book';
+  static const columnEmail = 'email';
+  static const columnPage = 'pageNumber';
+  static const columnISBN = 'isbn';
+  static const columnCompleted = 'completed';
+  static const columnReading = 'reading';
+  static const columnRating = 'rating';
+  static const columnTotalPages = 'pagesTotal';
+  static const columnDescription = 'description';
+  static const columnAuthorName = 'authorName';
+
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -32,13 +43,17 @@ class DatabaseHelper{
 
   }
   Future<dynamic>_onCreate(Database db, int version) async {
+    // user table
     db.execute(
         '''
       CREATE TABLE $_tableName (
       $columnId INTEGER PRIMARY KEY,
-      $columnName TEXT NOT NULL)
+      $columnName TEXT NOT NULL,
+      $columnEmail TEXT NOT NULL
+      )
       '''
     );
+
   }
   Future<int> insert(Map<String,dynamic>row) async{
     Database? db = await instance.database;
@@ -67,9 +82,28 @@ class DatabaseHelper{
 
 
 
+
   Future<dynamic>dropTable(String tableName)async{
     print('table deleted successfully'); //debug print
     Database? db = await instance.database;
     return await db!.rawQuery('DROP TABLE $tableName');
+  }
+
+
+  Future<dynamic>createDownloadTable(String tableName)async{
+    print('table being created : : : ');
+    Database? db = await instance.database;
+    return await db!.rawQuery('''
+    CREATE TABLE $tableName(
+    $columnId INTEGER NOT NULL,
+    $columnEmail TEXT NOT NULL, 
+    $columnISBN TEXT NOT NULL, 
+    $columnRating TEXT NOT NULL,
+    $columnAuthorName TEXT NOT NULL,
+    $columnDescription TEXT NOT NULL,
+    $columnTotalPages TEXT NOT NULL,
+    $columnBook TEXT NOT NULL,
+    )
+    ''');
   }
 }

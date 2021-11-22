@@ -5,16 +5,19 @@ import 'package:booknbooks/data.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:booknbooks/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 class ApiCalls{
-  String baseURL = 'http://192.168.1.7:4454';
+  String baseURL = 'http://192.168.1.2:8080';
 
   /*
 
   Response codes
    */
   String invalidToken = 'Invalid token.';
+
+
 
 
    signup(String mail, String pwd1, String pwd2, BuildContext context) async {
@@ -33,18 +36,22 @@ class ApiCalls{
   }
 
    login(String email, String pwd, BuildContext context)async{
-    Response response = await post(Uri.parse(baseURL+'/rest-auth/login/'),
-        body:{
-          'email':email,
-          'password':pwd
-        }
+    Response response = await post(
+      Uri.parse(baseURL+'/rest-auth/login/'),
+    body:{
+    'email':email,
+    'password':pwd
+    }
+
     );
     print(response.statusCode); // debug print
+    print(jsonDecode(response.body));
+    print(jsonDecode(response.body)['key']);
+    auth_token = jsonDecode(response.body)['key'];
+    active_user = email;
+    saveToken(auth_token);
     if(response.statusCode==200){
       essentials().showToast('Logged in Successfully');
-      print(jsonDecode(response.body)['key']);
-      auth_token = jsonDecode(response.body)['key'];
-      saveToken(auth_token);
       // receive token and store in a file
       print('inside');
       return Navigator.pushNamed(context, '/home');
@@ -69,13 +76,6 @@ class ApiCalls{
        Navigator.pushReplacementNamed(context, '/auth');
      }
   }
-
-  requestData(String url) async {
-     Response response = await get(Uri.parse(url),
-         headers: {'Authorization': 'token $auth_token'});
-     data_search = jsonDecode(response.body);
-  }
-
   searchData(String dataToSearch, int gen)async{
 
      if(auth_token!=''){
@@ -102,7 +102,10 @@ class ApiCalls{
   }
   getToken(BuildContext context)async{
      // getting token
-    if(auth_token=='') {
+    if(auth_token!=''){
+      return auth_token;
+    }
+    else{
       final appDocumentsDirectory = await getApplicationDocumentsDirectory();
       String filePath = '${appDocumentsDirectory.path}/token.txt';
       File file = File(filePath);
@@ -111,6 +114,7 @@ class ApiCalls{
       {
         auth_token = await file.readAsString();
         print(auth_token);
+
       }
       else{
         print('authentication failed');
@@ -118,13 +122,22 @@ class ApiCalls{
         Navigator.pushReplacementNamed(context,'/auth');
       }
     }
-    return auth_token;
+
+  }
+  requestData(String url)async{
+     Response response = await get(Uri.parse(url), headers: {'Authorization':'token $auth_token'});
+     data_search = jsonDecode(response.body);
+
   }
   saveToken(String token)async{
     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocumentsDirectory.path}/token.txt';
-    File file = File(filePath);
+    String filePath = '${appDocumentsDirectory.path}';
+
+    File file = File('${filePath}/token.txt');
+    File file2 = File('${filePath}/activeUser.txt');
     file.writeAsString(token);
+    // user email
+    file2.writeAsString(active_user);
 
   }
 
