@@ -33,7 +33,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[900],
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Center(
           child:Padding(
