@@ -119,6 +119,7 @@ class _BookDetailState extends State<BookDetail> {
   }
 
   Future<void> downloadBook() async {
+    //todo: file format!!!
     // String url = data![0]['GET'];
     print('hello');
     setState(() {
@@ -142,7 +143,6 @@ class _BookDetailState extends State<BookDetail> {
       onDone: () async {
         file.writeAsBytes(bytes);
         print(bytes.length);
-        // todo : call db query for updating download table
         var row = <String, dynamic>{
           DatabaseHelper.columnEmail: useremail,
           DatabaseHelper.columnISBN: data![0]['isbn'],
