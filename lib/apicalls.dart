@@ -6,7 +6,6 @@ import 'package:booknbooks/db.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:booknbooks/widgets.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 class ApiCalls{
@@ -18,8 +17,6 @@ class ApiCalls{
   Response codes
    */
   String invalidToken = 'Invalid token.';
-
-
 
 
    signup(String mail, String pwd1, String pwd2, BuildContext context) async {
@@ -178,9 +175,7 @@ class ApiCalls{
      if(toggle){
        Response response = await get(url,
            headers: {'Authorization': 'token $auth_token'});
-           print(jsonDecode(response.body));
-           myReadingList = jsonDecode(response.body);
-
+       myReadingList = jsonDecode(response.body);
      }
      else{
        Response response = await post(url,body: bookdata,

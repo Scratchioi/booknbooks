@@ -131,7 +131,7 @@ class _authenticationState extends State<authentication> {
                    ),
                    const SizedBox(height: 40,),
                    MaterialButton(onPressed: (){
-                    if(_pasword.text.length>8){
+                    if(_pasword.text.length>=8){
                       call_to_server.signup(_mail.text,_pasword.text,_confirmpwd.text, context);
                     }
                     else{

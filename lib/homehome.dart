@@ -15,29 +15,19 @@ List booksIndices = [];
 class _HomeHomeState extends State<HomeHome> {
 
   updateDownloads()async{
-    booksIndices = [];
     print('called');
     downloads = await DatabaseHelper.instance.queryAll('table$active_user');
-    print('data loadied');
+    print('data loaded');
 
     await call_to_server.userInteraction(true, {});
-    myReadingList.keys.forEach((val) {
-      // add in a list
-      booksIndices.add(val);
-    }
-    );
-    setState(() {
-
-    });
-    print(booksIndices);
+    setState(() {});
 
   }
 
   @override
   void initState(){
-    super.initState();
     updateDownloads();
-
+    super.initState();
   }
 
   @override
@@ -52,7 +42,7 @@ class _HomeHomeState extends State<HomeHome> {
             children: [
               SizedBox(height: 10,),
               Visibility(
-                  visible: booksIndices.length>1,
+                  visible: myReadingList.length>1,
                   child: Column(
                 children: [
                   textData(info: 'Reading list', toBold: true, size: 24),
@@ -62,25 +52,24 @@ class _HomeHomeState extends State<HomeHome> {
                       reverse: true,
                       scrollDirection: Axis.horizontal,
                       children: [
-                        for(int i=1;i<booksIndices.length;i++)
-                          InkWell(
-                              onLongPress: (){
-                                call_to_server.userInteraction(false, {
-                                  'user':useremail,
-                                  'isbn':myReadingList[i.toString()]['isbn'],
-                                  'read_list':'False'
-                                });
-                                essentials().showToast('Book Removed from list');
-                                updateDownloads();
-                                setState(() {
-
-                                });
-                              },
-                              onTap: (){
-                                Navigator.pushNamed(context, '/detail', arguments: [myReadingList[i.toString()]] );
-                              },
-                              child: BookIcon(bookName: myReadingList[i.toString()]['title'], pathImage:myReadingList[i.toString()]['img_link'],)
-                          )
+                        for(String key in myReadingList.keys)
+                          if (key!='user' && myReadingList[key]['read_list'])
+                            InkWell(
+                                onLongPress: (){
+                                  call_to_server.userInteraction(false, {
+                                    'user':useremail,
+                                    'isbn':myReadingList[key]['isbn'],
+                                    'read_list':'False'
+                                  });
+                                  essentials().showToast('Book Removed from list');
+                                  updateDownloads();
+                                  setState(() {});
+                                },
+                                onTap: (){
+                                  Navigator.pushNamed(context, '/detail', arguments: [myReadingList[key]] );
+                                },
+                                child: BookIcon(bookName: myReadingList[key]['title'], pathImage:myReadingList[key]['img_link'],)
+                            )
                       ],
                     ),
                   )
