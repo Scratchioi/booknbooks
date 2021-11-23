@@ -84,8 +84,10 @@ class _BookDetailState extends State<BookDetail> {
                 ],
               ),
 
-              Visibility(
-                child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,)
+              Center(
+                child: Visibility(
+                  child: const CircularProgressIndicator(color: Colors.white, value: null), visible: downloading,),
+              )
             ],
           ),
         ),
