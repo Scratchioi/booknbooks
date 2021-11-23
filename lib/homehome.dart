@@ -50,6 +50,43 @@ class _HomeHomeState extends State<HomeHome> {
           child:
           Column(
             children: [
+              SizedBox(height: 10,),
+              Visibility(
+                  visible: booksIndices.length>1,
+                  child: Column(
+                children: [
+                  textData(info: 'Reading list', toBold: true, size: 24),
+                  SizedBox(
+                    height: 250,
+                    child: ListView(
+                      reverse: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        for(int i=1;i<booksIndices.length;i++)
+                          InkWell(
+                              onLongPress: (){
+                                call_to_server.userInteraction(false, {
+                                  'user':useremail,
+                                  'isbn':myReadingList[i.toString()]['isbn'],
+                                  'read_list':'False'
+                                });
+                                essentials().showToast('Book Removed from list');
+                                updateDownloads();
+                                setState(() {
+
+                                });
+                              },
+                              onTap: (){
+                                Navigator.pushNamed(context, '/detail', arguments: [myReadingList[i.toString()]] );
+                              },
+                              child: BookIcon(bookName: myReadingList[i.toString()]['title'], pathImage:myReadingList[i.toString()]['img_link'],)
+                          )
+                      ],
+                    ),
+                  )
+                ],
+              )),
+              const SizedBox(height: 10,),
               textData(info: 'Downloads', toBold: true, size: 24),
               SizedBox(
                 height: 250,
@@ -66,27 +103,8 @@ class _HomeHomeState extends State<HomeHome> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
-              textData(info: 'Reading list', toBold: true, size: 24),
-              SizedBox(
-                height: 250,
-                child: ListView(
-                  reverse: true,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    for(int i=1;i<booksIndices.length;i++)
-                      InkWell(
-                        onLongPress: ()async{
 
-                        },
-                          onTap: (){
-                            Navigator.pushNamed(context, '/detail', arguments: [myReadingList[i.toString()]] );
-                          },
-                          child: BookIcon(bookName: myReadingList[i.toString()]['title'], pathImage:myReadingList[i.toString()]['img_link'],)
-                      )
-                  ],
-                ),
-              )
+
             ],
           ),
         ),
